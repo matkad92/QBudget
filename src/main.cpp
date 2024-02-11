@@ -7,7 +7,7 @@ int main() {
     MyBudget myBudget("users.xml", "expenses.xml", "incomes.xml");
     char choice;
     while (true) {
-        if (myBudget.isUserLoggedOut()) {
+        if (myBudget.isUserLoggedOut()) {//TODO isUserLogout zwraca false przy braku pliku?
             choice = myBudget.chooseMainMenuOption();
             switch (choice) {
             case '1':

@@ -1,25 +1,17 @@
 #include "DateOperations.h"
 
-string DateOperations::getSystemDate() {
+using timePoint = std::chrono::system_clock::time_point;
 
-    time_t localTime;
-    struct tm * ptr;
-    time( & localTime );
-    ptr = localtime( & localTime );
+std::string DateOperations::getSystemDate() {
 
-    string date;
-    string year = to_string(ptr->tm_year+1900);
-    string month = to_string(ptr->tm_mon+1);
-    string day = to_string(ptr->tm_mday);
-    if (ptr->tm_mon < 10) {
-        date = year + "-0" + month + "-" + day;
-    } else {
-        date = year + "-" + month + "-" + day;
-    }
-    return date;
+    timePoint nowLocal = date::floor<date::days>(std::chrono::system_clock::now());
+
+    auto formattedDate = date::format("%F", nowLocal);
+
+    return formattedDate;
 }
 
-string DateOperations::inputCorrectDateFormat() {
+std::string DateOperations::inputCorrectDateFormat() {
 
     string checkedDate = UnasignedMethods::takeLine();
 
@@ -166,7 +158,7 @@ int DateOperations::dayPerMonth (int year, int numberOfMonth) {
     }
 }
 
-string DateOperations::takeNewDateToCheck() {
+std::string DateOperations::takeNewDateToCheck() {
     string newDate;
     throw "Zjebalo";
     cout << "Date format is wrong, try again using yyyy-mm-dd format, starting from 2000-01-01.";
@@ -176,7 +168,7 @@ string DateOperations::takeNewDateToCheck() {
     return newDate;
 }
 
-string DateOperations::getCorrectDateString () {
+std::string DateOperations::getCorrectDateString () {
     return correctDateString;
 }
 

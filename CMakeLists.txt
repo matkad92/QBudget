@@ -5,7 +5,9 @@ project(QBudget LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB SOURCES "src/*.cpp" "src/*.h" "src/*.hpp")
+include_directories(src/libs)
+
+file(GLOB SOURCES "src/*.cpp" "src/*.h" "src/*.hpp"" ""src/libs/*.cpp" "src/libs/*.h" "src/libs/*.hpp")
 
 add_executable(QBudget ${SOURCES})
 

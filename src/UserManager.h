@@ -1,9 +1,9 @@
 #ifndef USERMANAGER_H
 #define USERMANAGER_H
 
-#include <iostream>
+// #include <iostream>
 #include <vector>
-#include <cstdlib>
+// #include <cstdlib>
 
 #include "User.h"
 #include "UserFile.h"
@@ -14,7 +14,7 @@ using namespace std;
 class UserManager {
     vector<User> users;
     UserFile userFile;
-    int loggedInUserId;
+    int loggedInUserId{0};
 
     User getNewUserData();
     bool isLoginOccupied(string login);
