@@ -12,6 +12,8 @@ file(GLOB SOURCES "src/*.cpp" "src/*.h" "src/*.hpp" "src/libs/*.cpp" "src/libs/*
 
 # Add test files from Tests/
 file(GLOB TEST_SOURCES "Tests/*.cpp" "Tests/*.h" "Tests/*.hpp")
+# set(ALL_SOURCES ${SOURCES} ${TEST_SOURCES})
+
 
 add_executable(QBudget ${SOURCES})
 
@@ -32,6 +34,11 @@ FetchContent_MakeAvailable(googletest)
 
 # Set up testing
 enable_testing()
-add_executable(MyTests ${TEST_SOURCES})
+add_executable(MyTests ${TEST_SOURCES}
+                # "src/DateOperations.h"
+                "src/DateOperations.cpp"
+                # "src/UnasignedMethods.h"
+                "src/UnasignedMethods .cpp"
+            )
 target_link_libraries(MyTests PRIVATE gtest_main)
 add_test(NAME MyTests COMMAND MyTests)
