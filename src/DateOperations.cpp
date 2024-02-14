@@ -13,7 +13,7 @@ std::string DateOperations::getSystemDate() {
 
 std::string DateOperations::inputCorrectDateFormat() {
 
-    string checkedDate = UnasignedMethods::takeLine();
+    std::string checkedDate = UnasignedMethods::takeLine();
 
     string dateDayString ;
     string dateMonthString ;
@@ -73,7 +73,24 @@ std::string DateOperations::inputCorrectDateFormat() {
         }
 }
 
-bool DateOperations::checkDateFormat(string checkedDate) {
+bool DateOperations::getDateIncorrectFormatToString(string &output){
+
+    std::string checkedDate = UnasignedMethods::takeLine();
+    for(int i = 0; i <3; i++){
+        if(checkDateFormat(checkedDate)){
+            output = checkedDate;
+            return true;
+        }
+        else {
+            checkedDate = takeNewDateToCheck();
+        }
+    }
+    output = "";
+    return false;
+}
+
+
+bool DateOperations::checkDateFormat(const std::string& checkedDate) {
 
     string dateDayString ;
     string dateMonthString ;
@@ -160,7 +177,6 @@ int DateOperations::dayPerMonth (int year, int numberOfMonth) {
 
 std::string DateOperations::takeNewDateToCheck() {
     string newDate;
-    throw "Zjebalo";
     cout << "Date format is wrong, try again using yyyy-mm-dd format, starting from 2000-01-01.";
     cout << endl << "Date: ";
     cin.sync();
@@ -242,4 +258,5 @@ bool DateOperations::isDateBiggerThanStartingDate (string date, string startingD
     }
     return false;
 }
+
 

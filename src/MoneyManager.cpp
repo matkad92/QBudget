@@ -124,12 +124,21 @@ void MoneyManager::balanceFromChoosenPeriod() {
 
 
 
-    string dateFromVector;
+    string dateFromVector, startingDate, endingDate;
     cout << "Choose starting date ( rrrr-mm-dd ):";
-    string startingDate = DateOperations::inputCorrectDateFormat();
+    // string startingDate = DateOperations::inputCorrectDateFormat();
+    if(!dateOperations.getDateIncorrectFormatToString(startingDate)){
+        // std::cout << "";
+        // getch();
+        return;
+    }
     cout << endl << "Choose ending date ( rrrr-mm-dd ):";
-    string endingDate = DateOperations::inputCorrectDateFormat();
-
+    // string endingDate = DateOperations::inputCorrectDateFormat();
+    if(!dateOperations.getDateIncorrectFormatToString(endingDate)){
+        // std::cout << "";
+        // getch();
+        return;
+    }
     if (!(DateOperations::isDateSmallerThanEndingDate(startingDate,endingDate))) {
         cout << "Wrong dates! Starting date can not be more recent than ending date.";
         getch();

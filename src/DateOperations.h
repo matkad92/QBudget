@@ -24,7 +24,8 @@ public:
     static std::string inputCorrectDateFormat(); //returns correct date
     static bool isDateSmallerThanEndingDate(std::string date, std::string endingDate);
     static bool isDateBiggerThanStartingDate(std::string date, std::string startingDate);
-    bool checkDateFormat(std::string checkedDate);
+    bool getDateIncorrectFormatToString(std::string& output);
+    bool checkDateFormat(const std::string& checkedDate);
     int getDateToSort();
     std::string getCorrectDateString ();
 

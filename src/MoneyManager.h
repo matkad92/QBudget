@@ -16,6 +16,7 @@ class MoneyManager {
 
     ExpensesManager expensesManager;
     IncomesManager incomesManager;
+    DateOperations dateOperations;
     int takeMonthFromDate(string dateFromVector);
     int takeYearFromDate(string dateFromVector);
     void printChosenIncomesAndExpenses(vector<Income> incomes, vector<Expense> expenses);
