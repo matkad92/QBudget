@@ -5,11 +5,12 @@ void Money::setUserId(int newId) {
 }
 
 void Money::setDate(string newDate) {
-    DateOperations dateOperation;
+    DateOperations dateOperation;//tutaj do zmiany, chceckDate nie pobiera nowej daty
     if (dateOperation.checkDateFormat(newDate) == true) {
-        date = dateOperation.getCorrectDateString();
-        dateToSort = dateOperation.getDateToSort();
-    } else cout << "Date can not be set.";
+        date = dateOperation.getCorrectDateString();//tutaj zamienic po prostu na newDate format sprawdzony
+        dateToSort = dateOperation.getDateToSort();//tutaj metoda ktora przygotuje inta do sortowania z newDate
+        //dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
+    } else std::cout << "Wrond date format." <<std::endl;//to zamienic na pobieranie w petli
 }
 
 

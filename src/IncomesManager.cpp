@@ -6,8 +6,9 @@ void IncomesManager::addIncome() {
 
     system ("cls");
     cout << " >>> ADDING NEW INCOME <<< " << endl;
-    income = getNewIncomeData ();
+    income = getNewIncomeData ();//dodac check daty, jesli zla to nie dodawac
     incomes.push_back(income);
+
 
     incomesFile.addIncomeToFile(income);
     cout << endl << "Income has been added successfully."<< endl << endl;
