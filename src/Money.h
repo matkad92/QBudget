@@ -6,22 +6,21 @@
 #include "DateOperations.h"
 #include "UnasignedMethods.h"
 
-using namespace std;
+// using namespace std;
 
 class Money {
 
     int userId;
-    string date;
+    std::string date;
     int dateToSort;
-    string item;
+    std::string item;
     double amount;
-    string amountString;
-    string takeNewAmountToCheck();
-
+    std::string amountString;
+    std::string takeNewAmountToCheck();
 
 
 public:
-
+    bool objectCorrectState{true};
     bool operator < (Money& money)
     {
         return (getDateToSort() < money.getDateToSort());
@@ -29,16 +28,16 @@ public:
 
 
     void setUserId( int newId);
-    void setDate( string newDate);
+    void setDate( std::string newDate);
 
-    void setItem( string newItem);
-    void setAmount(string newAmount);
+    void setItem( std::string newItem);
+    void setAmount(std::string newAmount);
     int getUserId();
-    string getDate();
+    std::string getDate();
     int getDateToSort();
-    string getItem();
+    std::string getItem();
     double getAmount();
-    string getAmountString();
+    std::string getAmountString();
 
 
 };

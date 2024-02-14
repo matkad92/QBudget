@@ -4,13 +4,16 @@ void Money::setUserId(int newId) {
     if (newId >= 0) userId = newId;
 }
 
-void Money::setDate(string newDate) {
-    DateOperations dateOperation;//tutaj do zmiany, chceckDate nie pobiera nowej daty
+void Money::setDate(std::string newDate) {
+    DateOperations dateOperation;
     if (dateOperation.checkDateFormat(newDate) == true) {
-        date = dateOperation.getCorrectDateString();//tutaj zamienic po prostu na newDate format sprawdzony
+        date = newDate;
         dateToSort = dateOperation.getDateToSort();//tutaj metoda ktora przygotuje inta do sortowania z newDate
         //dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
-    } else std::cout << "Wrond date format." <<std::endl;//to zamienic na pobieranie w petli
+    } else {
+        objectCorrectState = false;
+        std::cout << "Wrond date format." <<std::endl;
+    }
 }
 
 
@@ -18,10 +21,10 @@ void Money::setItem(string newItem) {
     item = newItem;
 }
 
-string Money::takeNewAmountToCheck() {
-    string newAmount;
-    cout << "Amount format is wrong, try again using format _ _ _ _ _ _ _ _ ._ _ " << endl;
-    cout << "Amount: ";
+std::string Money::takeNewAmountToCheck() {
+    std::string newAmount;
+    std::cout << "Amount format is wrong, try again using format _ _ _ _ _ _ _ _ ._ _ " << endl;
+    std::cout << "Amount: ";
     cin.sync();
     newAmount = UnasignedMethods::takeLine();
     return newAmount;
