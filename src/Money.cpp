@@ -8,8 +8,7 @@ void Money::setDate(std::string newDate) {
     DateOperations dateOperation;
     if (dateOperation.checkDateFormat(newDate) == true) {
         date = newDate;
-        dateToSort = dateOperation.getDateToSort();//tutaj metoda ktora przygotuje inta do sortowania z newDate
-        //dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
+        dateToSort = dateOperation.getDateToSort(newDate);
     } else {
         objectCorrectState = false;
         std::cout << "Wrond date format." <<std::endl;

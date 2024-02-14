@@ -12,8 +12,6 @@
 
 class DateOperations {
 
-    std::string correctDateString;
-    int dateToSort;
     static std::string takeNewDateToCheck();
     int dayPerMonth(int year, int numberOfMonth);
     int isLeapYear(int year);
@@ -27,8 +25,7 @@ public:
     static bool isDateBiggerOrEqualThanStartingDate(const std::string& date, const std::string& startingDate);
     bool getDateIncorrectFormatToString(std::string& output);
     bool checkDateFormat(const std::string& checkedDate);
-    int getDateToSort();
-    std::string getCorrectDateString ();
+    int getDateToSort(const std::string& toConvert);
 
 };
 #endif // DATEOPERATIONS_H

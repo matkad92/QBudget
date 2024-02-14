@@ -68,13 +68,19 @@ std::string DateOperations::takeNewDateToCheck() {
     return newDate;
 }
 
-std::string DateOperations::getCorrectDateString () {
-    return correctDateString;//do zmiany nie ustawiamy tego teraz
-}
 
+int DateOperations::getDateToSort(const std::string& toConvert) {
 
-int DateOperations::getDateToSort() {
-    return dateToSort;//do zmiany nie ustawiamy tego teraz
+    int year, month, day;
+
+    std::istringstream iss(toConvert);
+
+    char dash;
+    iss >> year >> dash >> month >> dash >> day;
+
+    int dateToSort = year * 10000 + month * 100 + day;
+
+    return dateToSort;
 }
 
 
