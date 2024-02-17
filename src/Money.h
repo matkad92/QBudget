@@ -33,6 +33,7 @@ public:
     int getUserId() const;
     std::string getDate() const;
     int getDateToSort() const;
+    bool chceckCorrectMoneyInput(const std::string& input);
     std::string getItem() const;
     double getAmount() const;
     std::string getAmountString() const;

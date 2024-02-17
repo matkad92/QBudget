@@ -36,30 +36,37 @@ void Money::setAmount(std::string newAmount) {
             newAmount[newAmount.size() - 3] = '.';
         }
 
-        size_t dotPosition = newAmount.find('.');
-        int dotCount = 0;
-        if (dotPosition != std::string::npos && dotPosition == newAmount.size() - 3) {
-            bool valid = std::all_of(newAmount.begin(), newAmount.end(), [&dotCount](char c) ->bool {
-                if (c == '.') {
-                    dotCount++;
-                    return dotCount <= 1;
-                }
-                return std::isdigit(c);
-            });
-
-            if (valid) {
-                if (newAmount[0] == '.') {
-                    newAmount.insert(0, "0");
-                }
-                amountString = newAmount;
-                amount = std::stod(amountString);
-                return;
+        if (chceckCorrectMoneyInput(newAmount)) {
+            if (newAmount[0] == '.') {
+                newAmount.insert(0, "0");
             }
+            amountString = newAmount;
+            amount = std::stod(amountString);
+            return;
         }
-
         newAmount = takeNewAmountToCheck();
     }
 
+}
+
+bool Money::chceckCorrectMoneyInput(const std::string &input)
+{
+    bool valid{false};
+    if(input.length() < 3){
+        return valid;
+    }
+    size_t dotPosition = input.find('.');
+    int dotCount = 0;
+    if (dotPosition != std::string::npos && dotPosition == input.size() - 3) {
+        valid = std::all_of(input.begin(), input.end(), [&dotCount](char c) ->bool {
+            if (c == '.') {
+                dotCount++;
+                return dotCount <= 1;
+            }
+            return std::isdigit(c);
+        });
+    }
+    return valid;
 }
 
 int Money::getUserId() const {
@@ -73,6 +80,8 @@ std::string Money::getDate() const {
 int Money::getDateToSort() const {
     return dateToSort;
 }
+
+
 
 std::string Money::getItem () const{
     return item;
