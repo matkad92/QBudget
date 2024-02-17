@@ -223,7 +223,7 @@ void MoneyManager::printChosenIncomesAndExpenses(std::vector<Income> incomes, st
 
 }
 
-void MoneyManager::printBalance (std::vector<Income> incomes, std::vector<Expense> expenses) {
+void MoneyManager::printBalance (const std::vector<Income> &incomes, const std::vector<Expense> &expenses) {
 
     double incomesSum = 0,  expensesSum = 0;
 

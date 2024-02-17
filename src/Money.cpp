@@ -73,7 +73,7 @@ std::string Money::getItem() {
     return item;
 }
 
-double Money::getAmount() {
+double Money::getAmount() const {
     return amount;
 }
 

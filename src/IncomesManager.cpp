@@ -73,7 +73,7 @@ void IncomesManager::printAllIncomes() {
     getch();
 }
 
-void IncomesManager::printIncome(Income income) {
+void IncomesManager::printIncome(const Income &income) {
 
     std::cout << std::endl << "Income Id:                 " << income.getIncomeId() << std::endl;
     //cout << "UserId:                    " << income.getUserId() << endl;
