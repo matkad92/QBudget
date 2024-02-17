@@ -9,7 +9,7 @@ class Income : public Money {
 
 public:
     void setIncomeId(int newIncomeId);
-    int getIncomeId();
+    int getIncomeId() const;
 
 };
 #endif // INCOME_H

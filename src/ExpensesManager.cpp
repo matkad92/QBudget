@@ -66,7 +66,7 @@ void ExpensesManager::printAllExpenses() {
     getch();
 }
 
-void ExpensesManager::printExpense(Expense expense) {
+void ExpensesManager::printExpense(const Expense& expense) {
 
     std::cout << std::endl << "Expense Id:                " << expense.getExpenseId() << std::endl;
     //cout << "UserId:                    " << expense.getUserId() << endl;

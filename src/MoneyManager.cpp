@@ -195,14 +195,14 @@ int MoneyManager::takeYearFromDate(std::string dateFromVector) {
     return year;
 }
 
-void MoneyManager::printChosenIncomesAndExpenses(std::vector<Income> incomes, std::vector<Expense> expenses) {
+void MoneyManager::printChosenIncomesAndExpenses(const std::vector<Income> &incomes, const std::vector<Expense> &expenses) {
 
     system("cls");
 
     if(!incomes.empty()) {
         std::cout << "            >>>INCOMES<<<" << std::endl;
         std::cout << "-----------------------------------------------" << std::endl;
-        for (std::vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
+        for (std::vector<Income>::const_iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
             incomesManager.printIncome(*itr);
         }
         std::cout << std::endl << std::endl << std::endl;
@@ -213,7 +213,7 @@ void MoneyManager::printChosenIncomesAndExpenses(std::vector<Income> incomes, st
     if(!expenses.empty()) {
         std::cout << "            >>>EXPENSES<<<" << std::endl;
         std::cout << "-----------------------------------------------" << std::endl;
-        for (std::vector<Expense>::iterator itr = expenses.begin(), VecEnd = expenses.end(); itr != VecEnd; itr++) {
+        for (std::vector<Expense>::const_iterator itr = expenses.begin(), VecEnd = expenses.end(); itr != VecEnd; itr++) {
             expensesManager.printExpense(*itr);
         }
         std::cout << std::endl;
@@ -227,10 +227,10 @@ void MoneyManager::printBalance (const std::vector<Income> &incomes, const std::
 
     double incomesSum = 0,  expensesSum = 0;
 
-    for (std::vector<Income>::iterator itr = incomes.begin(), vecEnd = incomes.end(); itr != vecEnd; itr++) {
+    for (std::vector<Income>::const_iterator itr = incomes.begin(), vecEnd = incomes.end(); itr != vecEnd; itr++) {
         incomesSum += itr->getAmount();
     }
-    for (std::vector<Expense>::iterator itr = expenses.begin(), vecEnd = expenses.end(); itr != vecEnd; itr++) {
+    for (std::vector<Expense>::const_iterator itr = expenses.begin(), vecEnd = expenses.end(); itr != vecEnd; itr++) {
         expensesSum += itr->getAmount();
     }
 

@@ -15,7 +15,7 @@ class ExpensesManager {
     const std::string EXPENSES_FILE_NAME;
     const int LOGGED_IN_USER_ID;
     ExpensesFile expensesFile;
-    void printExpense(Expense expense);
+    void printExpense(const Expense& expense);
 
 public:
     ExpensesManager (std::string expensesFileName, int loggedInUserId) : LOGGED_IN_USER_ID (loggedInUserId), EXPENSES_FILE_NAME(expensesFileName), expensesFile(expensesFileName) {
@@ -27,8 +27,6 @@ public:
     std::vector <Expense> getExpenses();
 
     friend class MoneyManager;
-
-
 
 };
 

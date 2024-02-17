@@ -17,7 +17,7 @@ class IncomesManager {
     const std::string INCOMES_FILE_NAME;
     const int LOGGED_IN_USER_ID;
     IncomesFile incomesFile;
-    void printIncome(Income income);
+    void printIncome(const Income& income);
 
 
 public:

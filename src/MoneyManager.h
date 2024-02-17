@@ -17,8 +17,8 @@ class MoneyManager {
     DateOperations dateOperations;
     int takeMonthFromDate(std::string dateFromVector);
     int takeYearFromDate(std::string dateFromVector);
-    void printChosenIncomesAndExpenses(std::vector<Income> incomes, std::vector<Expense> expenses);
-    void printBalance (std::vector<Income> incomes, std::vector<Expense> expenses);
+    void printChosenIncomesAndExpenses(const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
+    void printBalance (const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
 
 
 

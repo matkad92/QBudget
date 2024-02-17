@@ -8,7 +8,7 @@ class Expense : public Money {
     int expenseId;
 public:
     void setExpenseId(int newExpenseId);
-    int getExpenseId();
+    int getExpenseId() const;
 
 };
 #endif // EXPENSE_H

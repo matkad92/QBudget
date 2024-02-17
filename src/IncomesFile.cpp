@@ -9,7 +9,7 @@ void IncomesFile::addIncomeToFile(Income income) {
     bool fileExists = incomes.Load(INCOMES_FILE_NAME);//zwraca true gdzy plik udalo sie otworzyc
 
     if (!fileExists) {
-        incomes.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
+        incomes.SetDoc(R"(<?xml version="1.0" encoding="UTF-8"?>\r\n)");
         incomes.AddElem("Incomes");//dodaje element na pozycji glownej
     }
 
@@ -24,7 +24,10 @@ void IncomesFile::addIncomeToFile(Income income) {
     incomes.AddElem("Date", income.getDate());
     incomes.AddElem("DateToSort", income.getDateToSort());
 
-    incomes.Save(INCOMES_FILE_NAME);
+    if (!incomes.Save(INCOMES_FILE_NAME)) {
+        std::cerr << "Error: Failed to save the XML file." << std::endl;
+        return;
+    }
     lastIncomeId++;
 }
 

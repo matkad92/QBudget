@@ -4,6 +4,6 @@ void Expense::setExpenseId(int newExpenseId) {
     if (newExpenseId > 0 ) expenseId = newExpenseId;
 }
 
-int Expense::getExpenseId() {
+int Expense::getExpenseId() const{
     return expenseId;
 }

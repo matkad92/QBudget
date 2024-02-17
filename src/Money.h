@@ -30,12 +30,12 @@ public:
 
     void setItem( std::string newItem);
     void setAmount(std::string newAmount);
-    int getUserId();
-    std::string getDate();
-    int getDateToSort();
-    std::string getItem();
-    double getAmount();
-    std::string getAmountString();
+    int getUserId() const;
+    std::string getDate() const;
+    int getDateToSort() const;
+    std::string getItem() const;
+    double getAmount() const;
+    std::string getAmountString() const;
 
 
 };

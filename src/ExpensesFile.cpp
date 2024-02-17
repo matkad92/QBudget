@@ -24,7 +24,11 @@ void ExpensesFile::addExpenseToFile(Expense expense) {
     expenses.AddElem("Date", expense.getDate());
     expenses.AddElem("DateToSort", expense.getDateToSort());
 
-    expenses.Save(EXPENSES_FILE_NAME);
+    if (!expenses.Save(EXPENSES_FILE_NAME)) {
+        std::cerr << "Error: Failed to save the XML file." << std::endl;
+        return;
+    }
+
     lastExpenseId++;
 }
 

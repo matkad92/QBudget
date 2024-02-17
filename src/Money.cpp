@@ -31,45 +31,50 @@ std::string Money::takeNewAmountToCheck() {
 
 void Money::setAmount(std::string newAmount) {
 
-    int wrongChars ;
-    while (1) {
-        wrongChars = 0;
-        if (newAmount[newAmount.length()-3] == ',') {
-            newAmount[newAmount.length()-3] = '.';
+    while (true) {
+        if (newAmount.size() >= 4 && newAmount[newAmount.size() - 3] == ',') {
+            newAmount[newAmount.size() - 3] = '.';
         }
-        if ((newAmount[newAmount.length()-3] == '.') && (newAmount.length() >= 4)) {
-            for ( int i = 0; i < (newAmount.length()-3) ; i++ ) {
-                if ( isdigit(newAmount[i]) && isdigit(newAmount[newAmount.length()-1]) && isdigit(newAmount[newAmount.length()-2]) ) {
-                    continue;
-                } else wrongChars ++;
-            }
-            if (wrongChars == 0) {
+
+        size_t dotPosition = newAmount.find('.');
+        int dotCount = 0;
+        if (dotPosition != std::string::npos && dotPosition == newAmount.size() - 3) {
+            bool valid = std::all_of(newAmount.begin(), newAmount.end(), [&dotCount](char c) ->bool {
+                if (c == '.') {
+                    dotCount++;
+                    return dotCount <= 1;
+                }
+                return std::isdigit(c);
+            });
+
+            if (valid) {
+                if (newAmount[0] == '.') {
+                    newAmount.insert(0, "0");
+                }
                 amountString = newAmount;
-                amount = atof(amountString.c_str());
+                amount = std::stod(amountString);
                 return;
-            } else newAmount = takeNewAmountToCheck();
-
-        } else {
-            newAmount = takeNewAmountToCheck();
+            }
         }
-    }
 
+        newAmount = takeNewAmountToCheck();
+    }
 
 }
 
-int Money::getUserId() {
+int Money::getUserId() const {
     return userId;
 }
 
-std::string Money::getDate() {
+std::string Money::getDate() const {
     return date;
 }
 
-int Money::getDateToSort() {
+int Money::getDateToSort() const {
     return dateToSort;
 }
 
-std::string Money::getItem() {
+std::string Money::getItem () const{
     return item;
 }
 
@@ -77,7 +82,7 @@ double Money::getAmount() const {
     return amount;
 }
 
-std::string Money::getAmountString() {
+std::string Money::getAmountString() const {
     return amountString;
 }
 
