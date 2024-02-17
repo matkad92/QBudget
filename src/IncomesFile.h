@@ -10,18 +10,16 @@
 #include "FileXml.h"
 #include "UnasignedMethods.h"
 
-using namespace std;
-
 class IncomesFile : public FileXml {
 
     int lastIncomeId;
-    const string INCOMES_FILE_NAME;
+    const std::string INCOMES_FILE_NAME;
 public:
-    IncomesFile (string incomesFileName) : INCOMES_FILE_NAME (incomesFileName) {
+    IncomesFile (std::string incomesFileName) : INCOMES_FILE_NAME (incomesFileName) {
     };
     int getLastIncomeId();
     void addIncomeToFile(Income income);
-    vector<Income> loadLoggedInUserIncomes(int loggedInUserId);
+    std::vector<Income> loadLoggedInUserIncomes(int loggedInUserId);
 
 };
 

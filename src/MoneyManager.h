@@ -8,8 +8,6 @@
 #include "ExpensesManager.h"
 #include "IncomesManager.h"
 
-using namespace std;
-
 class MoneyManager {
 
     const int LOGGED_IN_USER_ID;
@@ -17,15 +15,15 @@ class MoneyManager {
     ExpensesManager expensesManager;
     IncomesManager incomesManager;
     DateOperations dateOperations;
-    int takeMonthFromDate(string dateFromVector);
-    int takeYearFromDate(string dateFromVector);
-    void printChosenIncomesAndExpenses(vector<Income> incomes, vector<Expense> expenses);
-    void printBalance (vector<Income> incomes, vector<Expense> expenses);
+    int takeMonthFromDate(std::string dateFromVector);
+    int takeYearFromDate(std::string dateFromVector);
+    void printChosenIncomesAndExpenses(std::vector<Income> incomes, std::vector<Expense> expenses);
+    void printBalance (std::vector<Income> incomes, std::vector<Expense> expenses);
 
 
 
 public:
-    MoneyManager (string expensesFileName, string incomesFileName, int loggedInUserId) :
+    MoneyManager (std::string expensesFileName, std::string incomesFileName, int loggedInUserId) :
         LOGGED_IN_USER_ID (loggedInUserId), expensesManager(expensesFileName, loggedInUserId), incomesManager(incomesFileName, loggedInUserId) {
     };
 

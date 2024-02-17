@@ -28,17 +28,17 @@ void IncomesFile::addIncomeToFile(Income income) {
     lastIncomeId++;
 }
 
-vector<Income> IncomesFile::loadLoggedInUserIncomes(int loggedInUserId) {
+std::vector<Income> IncomesFile::loadLoggedInUserIncomes(int loggedInUserId) {
 
     Income income;
-    vector<Income> loadedIncomes;
+    std::vector<Income> loadedIncomes;
 
     CMarkup incomesXml;
-    string incomeIdString, userIdString, amountString;
+    std::string incomeIdString, userIdString, amountString;
 
     bool fileExists = incomesXml.Load(INCOMES_FILE_NAME);
     if (!fileExists) {
-        cout << "There is no file: " << INCOMES_FILE_NAME << endl << "  No incomes loaded."<< endl;
+        std::cout << "There is no file: " << INCOMES_FILE_NAME << std::endl << "  No incomes loaded."<< std::endl;
         lastIncomeId = 0;
         getch();
     } else {

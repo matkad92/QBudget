@@ -9,8 +9,6 @@
 #include "IncomesFile.h"
 #include "DateOperations.h"
 
-// using namespace std;
-
 class IncomesManager {
 
     friend class MoneyManager;

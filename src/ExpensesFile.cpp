@@ -28,17 +28,17 @@ void ExpensesFile::addExpenseToFile(Expense expense) {
     lastExpenseId++;
 }
 
-vector<Expense> ExpensesFile::loadLoggedInUserExpenses(int loggedInUserId) {
+std::vector<Expense> ExpensesFile::loadLoggedInUserExpenses(int loggedInUserId) {
 
     Expense expense;
-    vector<Expense> loadedExpenses;
+    std::vector<Expense> loadedExpenses;
 
     CMarkup expensesXml;
-    string expenseIdString, userIdString, amountString;
+    std::string expenseIdString, userIdString, amountString;
 
     bool fileExists = expensesXml.Load(EXPENSES_FILE_NAME);
     if (!fileExists) {
-        cout << "There is no file: " << EXPENSES_FILE_NAME << endl << "  No expenses loaded."<< endl;
+        std::cout << "There is no file: " << EXPENSES_FILE_NAME << std::endl << "  No expenses loaded."<< std::endl;
         lastExpenseId = 0;
         getch();
     } else {

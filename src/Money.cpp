@@ -16,20 +16,20 @@ void Money::setDate(std::string newDate) {
 }
 
 
-void Money::setItem(string newItem) {
+void Money::setItem(std::string newItem) {
     item = newItem;
 }
 
 std::string Money::takeNewAmountToCheck() {
     std::string newAmount;
-    std::cout << "Amount format is wrong, try again using format _ _ _ _ _ _ _ _ ._ _ " << endl;
+    std::cout << "Amount format is wrong, try again using format _ _ _ _ _ _ _ _ ._ _ " << std::endl;
     std::cout << "Amount: ";
-    cin.sync();
+    std::cin.sync();
     newAmount = UnasignedMethods::takeLine();
     return newAmount;
 }
 
-void Money::setAmount(string newAmount) {
+void Money::setAmount(std::string newAmount) {
 
     int wrongChars ;
     while (1) {
@@ -61,7 +61,7 @@ int Money::getUserId() {
     return userId;
 }
 
-string Money::getDate() {
+std::string Money::getDate() {
     return date;
 }
 
@@ -69,7 +69,7 @@ int Money::getDateToSort() {
     return dateToSort;
 }
 
-string Money::getItem() {
+std::string Money::getItem() {
     return item;
 }
 
@@ -77,7 +77,7 @@ double Money::getAmount() {
     return amount;
 }
 
-string Money::getAmountString() {
+std::string Money::getAmountString() {
     return amountString;
 }
 

@@ -4,27 +4,25 @@
 
 #include <iostream>
 
-using namespace std;
-
 class User {
     int id;
-    string login;
-    string password;
-    string name;
-    string surname;
+    std::string login;
+    std::string password;
+    std::string name;
+    std::string surname;
 
 public:
     void setId(int newId);
-    void setLogin(string newLogin);
-    void setPassword(string newPassword);
-    void setName(string newName);
-    void setSurname(string newSurname);
+    void setLogin(std::string newLogin);
+    void setPassword(std::string newPassword);
+    void setName(std::string newName);
+    void setSurname(std::string newSurname);
 
     int getId();
-    string getLogin();
-    string getPassword();
-    string getName();
-    string getSurname();
+    std::string getLogin();
+    std::string getPassword();
+    std::string getName();
+    std::string getSurname();
 
 };
 

@@ -18,10 +18,10 @@ void MoneyManager::printAllExpenses() {
 
 void MoneyManager::balanceForTheCurrentMonth() {
 
-    vector<Income> currentMonthIncomes;
-    vector<Expense> currentMonthExpenses;
+    std::vector<Income> currentMonthIncomes;
+    std::vector<Expense> currentMonthExpenses;
 
-    string dateFromVector;
+    std::string dateFromVector;
     int monthToCompare;
     int yearToCompare;
 
@@ -64,10 +64,10 @@ void MoneyManager::balanceForTheCurrentMonth() {
 
 void MoneyManager::balanceForTheLastMonth() {
 
-    vector<Income> lastMonthIncomes;
-    vector<Expense> lastMonthExpenses;
+    std::vector<Income> lastMonthIncomes;
+    std::vector<Expense> lastMonthExpenses;
 
-    string dateFromVector;
+    std::string dateFromVector;
     int monthToCompare;
     int yearToCompare;
 
@@ -119,20 +119,20 @@ void MoneyManager::balanceForTheLastMonth() {
 
 void MoneyManager::balanceFromChoosenPeriod() {
 
-    vector<Income> ChoosenPeriodIncomes;
-    vector<Expense> ChoosenPeriodExpenses;
+    std::vector<Income> ChoosenPeriodIncomes;
+    std::vector<Expense> ChoosenPeriodExpenses;
 
 
 
-    string dateFromVector, startingDate, endingDate;
-    cout << "Choose starting date ( rrrr-mm-dd ):";
+    std::string dateFromVector, startingDate, endingDate;
+    std::cout << "Choose starting date ( rrrr-mm-dd ):";
     // string startingDate = DateOperations::inputCorrectDateFormat();
     if(!dateOperations.getDateIncorrectFormatToString(startingDate)){
         // std::cout << "";
         // getch();
         return;
     }
-    cout << endl << "Choose ending date ( rrrr-mm-dd ):";
+    std::cout << std::endl << "Choose ending date ( rrrr-mm-dd ):";
     // string endingDate = DateOperations::inputCorrectDateFormat();
     if(!dateOperations.getDateIncorrectFormatToString(endingDate)){
         // std::cout << "";
@@ -173,10 +173,10 @@ void MoneyManager::balanceFromChoosenPeriod() {
 
 }
 
-int MoneyManager::takeMonthFromDate(string dateFromVector) {
+int MoneyManager::takeMonthFromDate(std::string dateFromVector) {
 
     int month;
-    string monthString;
+    std::string monthString;
 
     monthString = dateFromVector.substr(5,2);
     month = atoi(monthString.c_str());
@@ -184,10 +184,10 @@ int MoneyManager::takeMonthFromDate(string dateFromVector) {
     return month;
 }
 
-int MoneyManager::takeYearFromDate(string dateFromVector) {
+int MoneyManager::takeYearFromDate(std::string dateFromVector) {
 
     int year;
-    string yearString;
+    std::string yearString;
 
     yearString = dateFromVector.substr(0,4);
     year = atoi(yearString.c_str());
@@ -195,54 +195,54 @@ int MoneyManager::takeYearFromDate(string dateFromVector) {
     return year;
 }
 
-void MoneyManager::printChosenIncomesAndExpenses(vector<Income> incomes, vector<Expense> expenses) {
+void MoneyManager::printChosenIncomesAndExpenses(std::vector<Income> incomes, std::vector<Expense> expenses) {
 
     system("cls");
 
     if(!incomes.empty()) {
-        cout << "            >>>INCOMES<<<" << endl;
-        cout << "-----------------------------------------------" << endl;
-        for (vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
+        std::cout << "            >>>INCOMES<<<" << std::endl;
+        std::cout << "-----------------------------------------------" << std::endl;
+        for (std::vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
             incomesManager.printIncome(*itr);
         }
-        cout << endl << endl << endl;
+        std::cout << std::endl << std::endl << std::endl;
     } else {
-        cout << endl << "There are no incomes."<< endl << endl;
+        std::cout << std::endl << "There are no incomes."<< std::endl << std::endl;
     }
 
     if(!expenses.empty()) {
-        cout << "            >>>EXPENSES<<<" << endl;
-        cout << "-----------------------------------------------" << endl;
-        for (vector<Expense>::iterator itr = expenses.begin(), VecEnd = expenses.end(); itr != VecEnd; itr++) {
+        std::cout << "            >>>EXPENSES<<<" << std::endl;
+        std::cout << "-----------------------------------------------" << std::endl;
+        for (std::vector<Expense>::iterator itr = expenses.begin(), VecEnd = expenses.end(); itr != VecEnd; itr++) {
             expensesManager.printExpense(*itr);
         }
-        cout << endl;
+        std::cout << std::endl;
     } else {
-        cout << endl << "There are no expenses."<< endl << endl;
+        std::cout << std::endl << "There are no expenses."<< std::endl << std::endl;
     }
 
 }
 
-void MoneyManager::printBalance (vector<Income> incomes, vector<Expense> expenses) {
+void MoneyManager::printBalance (std::vector<Income> incomes, std::vector<Expense> expenses) {
 
     double incomesSum = 0,  expensesSum = 0;
 
-    for (vector<Income>::iterator itr = incomes.begin(), vecEnd = incomes.end(); itr != vecEnd; itr++) {
+    for (std::vector<Income>::iterator itr = incomes.begin(), vecEnd = incomes.end(); itr != vecEnd; itr++) {
         incomesSum += itr->getAmount();
     }
-    for (vector<Expense>::iterator itr = expenses.begin(), vecEnd = expenses.end(); itr != vecEnd; itr++) {
+    for (std::vector<Expense>::iterator itr = expenses.begin(), vecEnd = expenses.end(); itr != vecEnd; itr++) {
         expensesSum += itr->getAmount();
     }
 
     double balance = incomesSum - expensesSum;
 
-    cout << "-----------------------------------------------" << endl;
-    cout << "INCOMES SUM : " << fixed << setprecision(2) << incomesSum << endl;
-    cout << "EXPENSES SUM : " << fixed << setprecision(2) << expensesSum << endl;
-    cout << "-----------------------------------------------" << endl;
-    cout << "BALANCE : " << fixed << setprecision(2) << balance << endl;
+    std::cout << "-----------------------------------------------" << std::endl;
+    std::cout << "INCOMES SUM : " << std::fixed << std::setprecision(2) << incomesSum << std::endl;
+    std::cout << "EXPENSES SUM : " << std::fixed << std::setprecision(2) << expensesSum << std::endl;
+    std::cout << "-----------------------------------------------" << std::endl;
+    std::cout << "BALANCE : " << std::fixed << std::setprecision(2) << balance << std::endl;
 
-    if (balance <= 0) cout << endl << "YOU SHOULD HAVE SAVED MORE! " << endl;
+    if (balance <= 0) std::cout << std::endl << "YOU SHOULD HAVE SAVED MORE! " << std::endl;
 
     getch();
 

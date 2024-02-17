@@ -1,14 +1,9 @@
 #ifndef DATEOPERATIONS_H
 #define DATEOPERATIONS_H
 
-// #include <iostream>
-// #include <time.h>
-// #include <string>
 #include "date.h"
 
 #include "UnasignedMethods.h"
-
-// using namespace std;
 
 class DateOperations {
 

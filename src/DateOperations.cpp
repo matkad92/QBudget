@@ -12,7 +12,7 @@ std::string DateOperations::getSystemDate() {
 }
 
 
-bool DateOperations::getDateIncorrectFormatToString(string &output){
+bool DateOperations::getDateIncorrectFormatToString(std::string &output){
 
     std::string checkedDate = UnasignedMethods::takeLine();
     for(int i = 0; i < 3; i++){
@@ -29,7 +29,7 @@ bool DateOperations::getDateIncorrectFormatToString(string &output){
 }
 
 bool DateOperations::checkDateFormat(const std::string& checkedDate){
-//test dla 31 lutego zrobic
+
     std::istringstream iss(checkedDate);
     date::year_month_day ymd;
     iss >> date::parse("%F", ymd);
@@ -63,7 +63,7 @@ std::string DateOperations::takeNewDateToCheck() {
     std::string newDate;
     std::cout << "Date format is wrong, try again using yyyy-mm-dd format, starting from 2000-01-01." << std::endl;
     std::cout << "Date: ";
-    cin.sync();
+    std::cin.sync();
     newDate = UnasignedMethods::takeLine();
     return newDate;
 }
@@ -84,7 +84,7 @@ int DateOperations::getDateToSort(const std::string& toConvert) {
 }
 
 
-DateOperations::SysDaysTimePoint DateOperations::getTimePointFromYmdString(const string &ymd) {
+DateOperations::SysDaysTimePoint DateOperations::getTimePointFromYmdString(const std::string &ymd) {
 
     std::istringstream iss(ymd);
     date::year_month_day ymdDate;

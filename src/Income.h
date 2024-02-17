@@ -3,8 +3,6 @@
 
 #include "Money.h"
 
-using namespace std;
-
 class Income : public Money {
 
     int incomeId;

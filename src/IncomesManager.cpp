@@ -11,12 +11,12 @@ void IncomesManager::addIncome() {
         incomes.push_back(income);
 
         incomesFile.addIncomeToFile(income);
-        std::cout << std::endl << "Income has been added successfully."<< endl << endl;
+        std::cout << std::endl << "Income has been added successfully."<< std::endl << std::endl;
         system("pause");
         std::cout << std::endl;
     }
     else {
-        std::cout << std::endl << "Income not added."<< endl << endl;
+        std::cout << std::endl << "Income not added."<< std::endl << std::endl;
         system("pause");
         std::cout << std::endl;
     }
@@ -44,7 +44,7 @@ Income IncomesManager::getNewIncomeData () {
         income.setDate(DateOperations::getSystemDate());
         break;
     case '2':
-        cout << "Enter income date in format yyyy-mm-dd (starting from 2000-01-01) : ";
+        std::cout << "Enter income date in format yyyy-mm-dd (starting from 2000-01-01) : ";
         income.setDate(UnasignedMethods::takeLine());
         break;
     default:
@@ -63,7 +63,7 @@ void IncomesManager::printAllIncomes() {
     if(!incomes.empty()) {
         std::cout << "            >>>INCOMES<<<" << std::endl;
         std::cout << "-----------------------------------------------" << std::endl;
-        for (vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
+        for (std::vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
             printIncome(*itr);
         }
         std::cout << std::endl;

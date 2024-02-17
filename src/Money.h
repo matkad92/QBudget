@@ -6,8 +6,6 @@
 #include "DateOperations.h"
 #include "UnasignedMethods.h"
 
-// using namespace std;
-
 class Money {
 
     int userId;
