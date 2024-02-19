@@ -15,12 +15,16 @@ class MoneyManager {
     ExpensesManager expensesManager;
     IncomesManager incomesManager;
     DateOperations dateOperations;
-    int takeMonthFromDate(std::string dateFromVector);
-    int takeYearFromDate(std::string dateFromVector);
+    int takeMonthFromDate(const std::string& dateFromVector);
+    int takeYearFromDate(const std::string& dateFromVector);
     void printChosenIncomesAndExpenses(const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
-    void printBalance (const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
-
-
+    void printBalances (const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
+    template<typename TransactionType>
+    std::vector<TransactionType> filterByMonth(const std::vector<TransactionType>& transactions, int month, int year);
+    template<typename TransactionType>
+    std::vector<TransactionType> filterByDateRange(const std::vector<TransactionType>& transactions, const std::string& startDate, const std::string& endDate);
+    // template<typename TransactionType>
+    // void printTransactions(const std::vector<TransactionType>& transactions, const std::string& transactionTypeLabel);
 
 public:
     MoneyManager (std::string expensesFileName, std::string incomesFileName, int loggedInUserId) :

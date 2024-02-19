@@ -18,181 +18,111 @@ void MoneyManager::printAllExpenses() {
 
 void MoneyManager::balanceForTheCurrentMonth() {
 
-    std::vector<Income> currentMonthIncomes;
-    std::vector<Expense> currentMonthExpenses;
+    auto today = date::year_month_day(date::floor<date::days>(std::chrono::system_clock::now()));
+    int month = static_cast<int>(static_cast<unsigned>(today.month()));
+    int year = static_cast<int>(today.year());
 
-    std::string dateFromVector;
-    int monthToCompare;
-    int yearToCompare;
-
-    time_t localTime;
-    struct tm * ptr;
-    time( & localTime );
-    ptr = localtime( & localTime );
-
-    for (int i = 0; i < expensesManager.expenses.size(); i++) {
-        dateFromVector = expensesManager.expenses[i].getDate();
-
-        monthToCompare = takeMonthFromDate(dateFromVector);
-        yearToCompare = takeYearFromDate(dateFromVector);
-
-        if (yearToCompare == (ptr->tm_year+1900) && monthToCompare == (ptr->tm_mon+1)) {
-            currentMonthExpenses.push_back(expensesManager.expenses[i]);
-
-        }
-    }
-
-    for (int i = 0; i < incomesManager.incomes.size(); i++) {
-        dateFromVector = incomesManager.incomes[i].getDate();
-
-        monthToCompare = takeMonthFromDate(dateFromVector);
-        yearToCompare = takeYearFromDate(dateFromVector);
-
-        if (yearToCompare == (ptr->tm_year+1900) && monthToCompare == (ptr->tm_mon+1)) {
-            currentMonthIncomes.push_back(incomesManager.incomes[i]);
-
-        }
-    }
-
+    std::vector<Income> currentMonthIncomes = filterByMonth(incomesManager.incomes, month, year);
+    std::vector<Expense> currentMonthExpenses = filterByMonth(expensesManager.expenses, month, year);
 
     std::sort(currentMonthIncomes.begin(), currentMonthIncomes.end());
     std::sort(currentMonthExpenses.begin(), currentMonthExpenses.end());
 
     printChosenIncomesAndExpenses(currentMonthIncomes, currentMonthExpenses);
-    printBalance (currentMonthIncomes, currentMonthExpenses);
+    printBalances (currentMonthIncomes, currentMonthExpenses);
 }
+
+template<typename TransactionType>
+std::vector<TransactionType> MoneyManager::filterByMonth(const std::vector<TransactionType> &transactions, int month, int year) {
+
+    std::vector<TransactionType> result;
+    for (const auto& transaction : transactions) {
+        if (takeMonthFromDate(transaction.getDate()) == month &&
+            takeYearFromDate(transaction.getDate()) == year) {
+            result.push_back(transaction);
+        }
+    }
+    return result;
+}
+
 
 void MoneyManager::balanceForTheLastMonth() {
 
-    std::vector<Income> lastMonthIncomes;
-    std::vector<Expense> lastMonthExpenses;
+    auto today = date::year_month_day(date::floor<date::days>(std::chrono::system_clock::now()));
+    int currentMonth = static_cast<int>(static_cast<unsigned>(today.month()));
+    int currentYear = static_cast<int>(today.year());
 
-    std::string dateFromVector;
-    int monthToCompare;
-    int yearToCompare;
-
-    time_t localTime;
-    struct tm * ptr;
-    time( & localTime );
-    ptr = localtime( & localTime );
-
-    int prevoiusMonth;
-    int previousMonthYear;
-
-    if ((ptr->tm_mon+1) > 1) {
-        prevoiusMonth = (ptr->tm_mon);
-        previousMonthYear = (ptr->tm_year+1900);
-    } else if ((ptr->tm_mon+1) == 1) {
-        prevoiusMonth = 12;
-        previousMonthYear = (ptr->tm_year+1900) - 1;
+    int previousMonth, previousYear;
+    if (currentMonth > 1) {
+        previousMonth = currentMonth - 1;
+        previousYear = currentYear;
+    } else {
+        previousMonth = 12;
+        previousYear = currentYear - 1;
     }
 
-    for (int i = 0; i < expensesManager.expenses.size(); i++) {
-        dateFromVector = expensesManager.expenses[i].getDate();
-
-        monthToCompare = takeMonthFromDate(dateFromVector);
-        yearToCompare = takeYearFromDate(dateFromVector);
-
-        if (yearToCompare == previousMonthYear && monthToCompare == prevoiusMonth) {
-            lastMonthExpenses.push_back(expensesManager.expenses[i]);
-        }
-    }
-
-    for (int i = 0; i < incomesManager.incomes.size(); i++) {
-        dateFromVector = incomesManager.incomes[i].getDate();
-
-        monthToCompare = takeMonthFromDate(dateFromVector);
-        yearToCompare = takeYearFromDate(dateFromVector);
-
-        if (yearToCompare == previousMonthYear && monthToCompare == prevoiusMonth) {
-            lastMonthIncomes.push_back(incomesManager.incomes[i]);
-        }
-    }
+    std::vector<Income> lastMonthIncomes = filterByMonth(incomesManager.incomes, previousMonth, previousYear);
+    std::vector<Expense> lastMonthExpenses = filterByMonth(expensesManager.expenses, previousMonth, previousYear);
 
 
     sort(lastMonthIncomes.begin(), lastMonthIncomes.end());
     sort(lastMonthExpenses.begin(), lastMonthExpenses.end());
 
     printChosenIncomesAndExpenses(lastMonthIncomes, lastMonthExpenses);
-    printBalance (lastMonthIncomes, lastMonthExpenses);
+    printBalances (lastMonthIncomes, lastMonthExpenses);
 }
 
 void MoneyManager::balanceFromChoosenPeriod() {
 
-    std::vector<Income> ChoosenPeriodIncomes;
-    std::vector<Expense> ChoosenPeriodExpenses;
+    std::string startingDate, endingDate;
 
-
-
-    std::string dateFromVector, startingDate, endingDate;
     std::cout << "Choose starting date ( rrrr-mm-dd ):";
-    // string startingDate = DateOperations::inputCorrectDateFormat();
     if(!dateOperations.getDateIncorrectFormatToString(startingDate)){
-        // std::cout << "";
-        // getch();
         return;
     }
+
     std::cout << std::endl << "Choose ending date ( rrrr-mm-dd ):";
-    // string endingDate = DateOperations::inputCorrectDateFormat();
     if(!dateOperations.getDateIncorrectFormatToString(endingDate)){
-        // std::cout << "";
-        // getch();
         return;
     }
+
     if (!(DateOperations::isDateSmallerThanEndingDate(startingDate,endingDate))) {
         std::cout << "Wrong dates! Starting date can not be more recent than ending date.";
         getch();
         return;
     }
 
-
-    for (int i = 0; i < expensesManager.expenses.size(); i++) {
-        dateFromVector = expensesManager.expenses[i].getDate();
-
-
-        if (DateOperations::isDateSmallerThanEndingDate(dateFromVector,endingDate) && DateOperations::isDateBiggerOrEqualThanStartingDate(dateFromVector,startingDate)) {
-            ChoosenPeriodExpenses.push_back(expensesManager.expenses[i]);
-        }
-    }
-
-    for (int i = 0; i < incomesManager.incomes.size(); i++) {
-        dateFromVector = incomesManager.incomes[i].getDate();
-
-
-        if (DateOperations::isDateSmallerThanEndingDate(dateFromVector,endingDate) && DateOperations::isDateBiggerOrEqualThanStartingDate(dateFromVector,startingDate)) {
-            ChoosenPeriodIncomes.push_back(incomesManager.incomes[i]);
-        }
-    }
-
+    auto ChoosenPeriodExpenses = filterByDateRange(expensesManager.expenses, startingDate, endingDate);
+    auto ChoosenPeriodIncomes = filterByDateRange(incomesManager.incomes, startingDate, endingDate);
 
     sort(ChoosenPeriodIncomes.begin(), ChoosenPeriodIncomes.end());
     sort(ChoosenPeriodExpenses.begin(), ChoosenPeriodExpenses.end());
 
     printChosenIncomesAndExpenses(ChoosenPeriodIncomes, ChoosenPeriodExpenses);
-    printBalance (ChoosenPeriodIncomes, ChoosenPeriodExpenses);
+    printBalances (ChoosenPeriodIncomes, ChoosenPeriodExpenses);
 
 }
 
-int MoneyManager::takeMonthFromDate(std::string dateFromVector) {
-
-    int month;
-    std::string monthString;
-
-    monthString = dateFromVector.substr(5,2);
-    month = atoi(monthString.c_str());
-
-    return month;
+template<typename TransactionType>
+std::vector<TransactionType> MoneyManager::filterByDateRange(const std::vector<TransactionType> &transactions, const std::string &startDate, const std::string &endDate)
+{
+    std::vector<TransactionType> result;
+    for (const auto& transaction : transactions) {
+        std::string date = transaction.getDate();
+        if (DateOperations::isDateSmallerThanEndingDate(date, endDate) && DateOperations::isDateBiggerOrEqualThanStartingDate(date, startDate)) {
+            result.push_back(transaction);
+        }
+    }
+    return result;
 }
 
-int MoneyManager::takeYearFromDate(std::string dateFromVector) {
 
-    int year;
-    std::string yearString;
+int MoneyManager::takeMonthFromDate(const std::string& dateFromVector) {
+    return std::stoi(dateFromVector.substr(5, 2));
+}
 
-    yearString = dateFromVector.substr(0,4);
-    year = atoi(yearString.c_str());
-
-    return year;
+int MoneyManager::takeYearFromDate(const std::string& dateFromVector) {
+    return std::stoi(dateFromVector.substr(0, 4));
 }
 
 void MoneyManager::printChosenIncomesAndExpenses(const std::vector<Income> &incomes, const std::vector<Expense> &expenses) {
@@ -202,8 +132,8 @@ void MoneyManager::printChosenIncomesAndExpenses(const std::vector<Income> &inco
     if(!incomes.empty()) {
         std::cout << "            >>>INCOMES<<<" << std::endl;
         std::cout << "-----------------------------------------------" << std::endl;
-        for (std::vector<Income>::const_iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
-            incomesManager.printIncome(*itr);
+        for (const auto& income : incomes) {
+            incomesManager.printIncome(income);
         }
         std::cout << std::endl << std::endl << std::endl;
     } else {
@@ -213,8 +143,8 @@ void MoneyManager::printChosenIncomesAndExpenses(const std::vector<Income> &inco
     if(!expenses.empty()) {
         std::cout << "            >>>EXPENSES<<<" << std::endl;
         std::cout << "-----------------------------------------------" << std::endl;
-        for (std::vector<Expense>::const_iterator itr = expenses.begin(), VecEnd = expenses.end(); itr != VecEnd; itr++) {
-            expensesManager.printExpense(*itr);
+        for (const auto& expense : expenses) {
+            expensesManager.printExpense(expense);
         }
         std::cout << std::endl;
     } else {
@@ -223,15 +153,15 @@ void MoneyManager::printChosenIncomesAndExpenses(const std::vector<Income> &inco
 
 }
 
-void MoneyManager::printBalance (const std::vector<Income> &incomes, const std::vector<Expense> &expenses) {
+void MoneyManager::printBalances (const std::vector<Income> &incomes, const std::vector<Expense> &expenses) {
 
     double incomesSum = 0,  expensesSum = 0;
 
-    for (std::vector<Income>::const_iterator itr = incomes.begin(), vecEnd = incomes.end(); itr != vecEnd; itr++) {
-        incomesSum += itr->getAmount();
+    for (const auto& income : incomes) {
+        incomesSum += income.getAmount();
     }
-    for (std::vector<Expense>::const_iterator itr = expenses.begin(), vecEnd = expenses.end(); itr != vecEnd; itr++) {
-        expensesSum += itr->getAmount();
+    for (const auto& expense : expenses) {
+        expensesSum += expense.getAmount();
     }
 
     double balance = incomesSum - expensesSum;
@@ -247,4 +177,8 @@ void MoneyManager::printBalance (const std::vector<Income> &incomes, const std::
     getch();
 
 }
+
+
+
+
 
