@@ -20,6 +20,7 @@ void Money::setItem(std::string newItem) {
     item = newItem;
 }
 
+
 std::string Money::takeNewAmountToCheck() {
     std::string newAmount;
     std::cout << "Amount format is wrong, try again using format _ _ _ _ _ _ _ _ ._ _ " << std::endl;
@@ -27,6 +28,21 @@ std::string Money::takeNewAmountToCheck() {
     std::cin.sync();
     newAmount = UnasignedMethods::takeLine();
     return newAmount;
+}
+
+Money::Money()
+{
+    type = OperationType::Undefined;
+}
+
+Money::~Money()
+{
+
+}
+
+Money::OperationType Money::getOperationType() const
+{
+    return type;
 }
 
 void Money::setAmount(std::string newAmount) {

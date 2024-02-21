@@ -23,8 +23,7 @@ class MoneyManager {
     std::vector<TransactionType> filterByMonth(const std::vector<TransactionType>& transactions, int month, int year);
     template<typename TransactionType>
     std::vector<TransactionType> filterByDateRange(const std::vector<TransactionType>& transactions, const std::string& startDate, const std::string& endDate);
-    // template<typename TransactionType>
-    // void printTransactions(const std::vector<TransactionType>& transactions, const std::string& transactionTypeLabel);
+
 
 public:
     MoneyManager (std::string expensesFileName, std::string incomesFileName, int loggedInUserId) :

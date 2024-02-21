@@ -6,7 +6,17 @@
 #include "DateOperations.h"
 #include "UnasignedMethods.h"
 
+
+
 class Money {
+public:
+    enum class OperationType{
+        Undefined,
+        Income,
+        Expense,
+    };
+
+private:
 
     int userId;
     std::string date;
@@ -16,15 +26,20 @@ class Money {
     std::string amountString;
     std::string takeNewAmountToCheck();
 
+protected:
+    OperationType  type;
 
 public:
+    Money();
+
+    virtual ~Money();
     bool objectCorrectState{true};
     bool operator < (Money& money)
     {
         return (getDateToSort() < money.getDateToSort());
     }
 
-
+    OperationType getOperationType() const;
     void setUserId( int newId);
     void setDate( std::string newDate);
 

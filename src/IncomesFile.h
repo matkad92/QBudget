@@ -6,6 +6,7 @@
 #include <conio.h>
 #include <string>
 
+
 #include "Income.h"
 #include "FileXml.h"
 #include "UnasignedMethods.h"
@@ -20,6 +21,7 @@ public:
     int getLastIncomeId();
     void addIncomeToFile(Income income);
     std::vector<Income> loadLoggedInUserIncomes(int loggedInUserId);
+    void loadLoggedInUserIncomes(int loggedInUserId, std::vector<Income>& incomes);
 
 };
 

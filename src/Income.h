@@ -8,6 +8,7 @@ class Income : public Money {
     int incomeId;
 
 public:
+    Income();
     void setIncomeId(int newIncomeId);
     int getIncomeId() const;
 
