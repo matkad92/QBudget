@@ -15,14 +15,13 @@ void MyBudget::changePassword() {
 void MyBudget::userLogin() {
     userManager.login();
     if (userManager.isUserLoggedIn()) {
-        moneyManager =  new MoneyManager (EXPENSES_FILE_NAME , INCOMES_FILE_NAME, userManager.getLoggedInUserId());
+        moneyManager = std::make_unique<MoneyManager>(EXPENSES_FILE_NAME , INCOMES_FILE_NAME, userManager.getLoggedInUserId());
     }
 }
 
 void MyBudget::logout() {
     userManager.logout();
-    delete moneyManager;
-    moneyManager = NULL;
+    moneyManager.reset();
 }
 
 bool MyBudget::isUserLoggedOut() {
