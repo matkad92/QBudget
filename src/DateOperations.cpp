@@ -30,6 +30,9 @@ bool DateOperations::getDateIncorrectFormatToString(std::string &output){
 
 bool DateOperations::checkDateFormat(const std::string& checkedDate){
 
+    if (checkedDate.length() != 10)
+        return false;
+
     std::istringstream iss(checkedDate);
     date::year_month_day ymd;
     iss >> date::parse("%F", ymd);
@@ -70,6 +73,9 @@ std::string DateOperations::takeNewDateToCheck() {
 
 
 int DateOperations::getDateToSort(const std::string& toConvert) {
+
+    if(!checkDateFormat(toConvert))
+        return 0;
 
     int year, month, day;
 

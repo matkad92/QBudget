@@ -9,7 +9,6 @@ class DateOperations {
 
     static std::string takeNewDateToCheck();
     int dayPerMonth(int year, int numberOfMonth);
-    int isLeapYear(int year);
     using SysDaysTimePoint = std::chrono::sys_days;
     static SysDaysTimePoint getTimePointFromYmdString(const std::string& ymd);
 
@@ -21,6 +20,7 @@ public:
     bool getDateIncorrectFormatToString(std::string& output);
     bool checkDateFormat(const std::string& checkedDate);
     int getDateToSort(const std::string& toConvert);
+    int isLeapYear(int year);
 
 };
 #endif // DATEOPERATIONS_H
