@@ -5,45 +5,45 @@ void UserManager::userRegister() {
     users.push_back(user);
     userFile.addUserToFile(user);
 
-    cout << endl << "User has been created successfully."<< endl << endl;
+    std::cout << std::endl << "User has been created successfully."<< std::endl << std::endl;
     system("pause");
-    cout << endl;
+    std::cout << std::endl;
 }
 User UserManager::getNewUserData() {
     User user;
-    string login;
+    std::string login;
 
     do {
-        cout << "Enter login: ";
-        cin >> login;
+        std::cout << "Enter login: ";
+        std::cin >> login;
         user.setLogin(login);
     } while (isLoginOccupied(user.getLogin()) == true);
 
     user.setId(getNewUserId());
 
-    cout << "Enter Password: ";
-    string password;//Mozna dodac opcje sprawdzania formatu hasla
-    cin.sync();
+    std::cout << "Enter Password: ";
+    std::string password;//Mozna dodac opcje sprawdzania formatu hasla
+    std::cin.sync();
     password = UnasignedMethods::takeLine();
     user.setPassword(password);
 
-    cout <<  "Enter Name: ";
-    string name;
+    std::cout <<  "Enter Name: ";
+    std::string name;
     name = UnasignedMethods::takeLine();
     user.setName(name);
 
-    cout << "Enter Surname: ";
-    string surname;
+    std::cout << "Enter Surname: ";
+    std::string surname;
     surname = UnasignedMethods::takeLine();
     user.setSurname(surname);
 
     return user;
 }
 
-bool UserManager::isLoginOccupied(string login) {
+bool UserManager::isLoginOccupied(std::string login) {
     for (int i = 0; i < users.size(); i++) {
         if (users[i].getLogin() == login) {
-            cout << endl << "User with this login already exists!" << endl;
+            std::cout << std::endl << "User with this login already exists!" << std::endl;
             return true;
         }
     }
@@ -57,39 +57,39 @@ int UserManager::getNewUserId() {
 
 void UserManager::printAllUsers() {
     for ( int i = 0; i < users.size(); i++) {
-        cout << users[i].getId() << endl;
-        cout << users[i].getLogin() << endl;
-        cout << users[i].getPassword() << endl;
-        cout << users[i].getName() << endl;
-        cout << users[i].getSurname() << endl;
+        std::cout << users[i].getId() << std::endl;
+        std::cout << users[i].getLogin() << std::endl;
+        std::cout << users[i].getPassword() << std::endl;
+        std::cout << users[i].getName() << std::endl;
+        std::cout << users[i].getSurname() << std::endl;
     }
 }
 
 int UserManager::login() {
     User user;
-    string inputLogin = "", inputPassword = "";
+    std::string inputLogin = "", inputPassword = "";
 
-    cout << endl << "Enter login: ";
+    std::cout << std::endl << "Enter login: ";
     inputLogin = UnasignedMethods::takeLine();
 
-    for (vector<User>::iterator itr = users.begin(), vecEnd = users.end(); itr < vecEnd; itr++) {
+    for (std::vector<User>::iterator itr = users.begin(), vecEnd = users.end(); itr < vecEnd; itr++) {
         if (itr -> getLogin() == inputLogin) {
             for (int numberOfTries = 3; numberOfTries > 0; numberOfTries--) {
-                cout << "Enter password. (Number of tries left: " << numberOfTries << ") : ";
+                std::cout << "Enter password. (Number of tries left: " << numberOfTries << ") : ";
                 inputPassword = UnasignedMethods::takeLine();
                 if (itr -> getPassword() == inputPassword) {
-                    cout << "You have successfully logged in."<< endl << endl;
+                    std::cout << "You have successfully logged in."<< std::endl << std::endl;
                     system("pause");
                     loggedInUserId = itr -> getId();
                     return loggedInUserId;
                 }
             }
-            cout << "You entered wrong password 3 times." << endl;
+            std::cout << "You entered wrong password 3 times." << std::endl;
             system("pause");
             return 0;
         }
     }
-    cout << "There is no User with this login!" << endl << endl;
+    std::cout << "There is no User with this login!" << std::endl << std::endl;
     system("pause");
     return 0;
 
@@ -110,22 +110,22 @@ void UserManager::logout() {
 
 void UserManager::changePassword() {
 
-    string newPassword;
-    string oldPassword;
-    cout << "Enter new password: ";
+    std::string newPassword;
+    std::string oldPassword;
+    std::cout << "Enter new password: ";
     newPassword = UnasignedMethods::takeLine();
-    cout << "Enter old password: ";
+    std::cout << "Enter old password: ";
     oldPassword = UnasignedMethods::takeLine();
 
-    for (vector<User>::iterator itr = users.begin(), vecEnd = users.end(); itr!= vecEnd; itr++) {
+    for (std::vector<User>::iterator itr = users.begin(), vecEnd = users.end(); itr!= vecEnd; itr++) {
         if (itr->getId() == loggedInUserId) {
             if (itr->getPassword() != oldPassword){
-                cout << "Old password wrong!" << endl;
+                std::cout << "Old password wrong!" << std::endl;
                 getch();
                 return;
             }
             itr->setPassword(newPassword);
-            cout << "Password has been changed. "<< endl << endl;
+            std::cout << "Password has been changed. "<< std::endl << std::endl;
 
             userFile.changePasswordInFile(loggedInUserId, newPassword);
             system("pause");

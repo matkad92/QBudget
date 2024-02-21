@@ -8,23 +8,25 @@
 #include "ExpensesManager.h"
 #include "IncomesManager.h"
 
-using namespace std;
-
 class MoneyManager {
 
     const int LOGGED_IN_USER_ID;
 
     ExpensesManager expensesManager;
     IncomesManager incomesManager;
-    int takeMonthFromDate(string dateFromVector);
-    int takeYearFromDate(string dateFromVector);
-    void printChosenIncomesAndExpenses(vector<Income> incomes, vector<Expense> expenses);
-    void printBalance (vector<Income> incomes, vector<Expense> expenses);
-
+    DateOperations dateOperations;
+    int takeMonthFromDate(const std::string& dateFromVector);
+    int takeYearFromDate(const std::string& dateFromVector);
+    void printChosenIncomesAndExpenses(const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
+    void printBalances (const std::vector<Income>& incomes, const std::vector<Expense>& expenses);
+    template<typename TransactionType>
+    std::vector<TransactionType> filterByMonth(const std::vector<TransactionType>& transactions, int month, int year);
+    template<typename TransactionType>
+    std::vector<TransactionType> filterByDateRange(const std::vector<TransactionType>& transactions, const std::string& startDate, const std::string& endDate);
 
 
 public:
-    MoneyManager (string expensesFileName, string incomesFileName, int loggedInUserId) :
+    MoneyManager (std::string expensesFileName, std::string incomesFileName, int loggedInUserId) :
         LOGGED_IN_USER_ID (loggedInUserId), expensesManager(expensesFileName, loggedInUserId), incomesManager(incomesFileName, loggedInUserId) {
     };
 

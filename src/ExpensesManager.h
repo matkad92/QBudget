@@ -9,30 +9,24 @@
 #include "DateOperations.h"
 
 
-using namespace std;
-
 class ExpensesManager {
 
-
-
-    vector <Expense> expenses;
-    const string EXPENSES_FILE_NAME;
+    std::vector <Expense> expenses;
+    const std::string EXPENSES_FILE_NAME;
     const int LOGGED_IN_USER_ID;
     ExpensesFile expensesFile;
-    void printExpense(Expense expense);
+    void printExpense(const Expense& expense);
 
 public:
-    ExpensesManager (string expensesFileName, int loggedInUserId) : LOGGED_IN_USER_ID (loggedInUserId), EXPENSES_FILE_NAME(expensesFileName), expensesFile(expensesFileName) {
+    ExpensesManager (std::string expensesFileName, int loggedInUserId) : LOGGED_IN_USER_ID (loggedInUserId), EXPENSES_FILE_NAME(expensesFileName), expensesFile(expensesFileName) {
         expenses = expensesFile.loadLoggedInUserExpenses(LOGGED_IN_USER_ID);
     };
     void addExpense();
     Expense getNewExpenseData();
     void printAllExpenses();
-    vector <Expense> getExpenses();
+    std::vector <Expense> getExpenses();
 
     friend class MoneyManager;
-
-
 
 };
 

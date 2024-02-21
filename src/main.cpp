@@ -1,13 +1,11 @@
 #include <iostream>
 #include "MyBudget.h"
 
-using namespace std;
-
 int main() {
     MyBudget myBudget("users.xml", "expenses.xml", "incomes.xml");
     char choice;
     while (true) {
-        if (myBudget.isUserLoggedOut()) {//TODO isUserLogout zwraca false przy braku pliku?
+        if (myBudget.isUserLoggedOut()) {
             choice = myBudget.chooseMainMenuOption();
             switch (choice) {
             case '1':
@@ -20,7 +18,7 @@ int main() {
                 exit(0);
                 break;
             default:
-                cout << endl << "There is no such option in main menu." << endl << endl;
+                std::cout << std::endl << "There is no such option in main menu." << std::endl << std::endl;
                 system("pause");
                 break;
             }

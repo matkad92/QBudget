@@ -3,15 +3,14 @@
 
 #include "Money.h"
 
-using namespace std;
-
 class Income : public Money {
 
     int incomeId;
 
 public:
+    Income();
     void setIncomeId(int newIncomeId);
-    int getIncomeId();
+    int getIncomeId() const;
 
 };
 #endif // INCOME_H

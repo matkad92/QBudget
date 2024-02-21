@@ -6,39 +6,52 @@
 #include "DateOperations.h"
 #include "UnasignedMethods.h"
 
-using namespace std;
+
 
 class Money {
+public:
+    enum class OperationType{
+        Undefined,
+        Income,
+        Expense,
+    };
+
+private:
 
     int userId;
-    string date;
+    std::string date;
     int dateToSort;
-    string item;
+    std::string item;
     double amount;
-    string amountString;
-    string takeNewAmountToCheck();
+    std::string amountString;
+    std::string takeNewAmountToCheck();
 
-
+protected:
+    OperationType  type;
 
 public:
+    Money();
 
+    virtual ~Money();
+    bool objectCorrectState{true};
     bool operator < (Money& money)
     {
         return (getDateToSort() < money.getDateToSort());
     }
 
-
+    OperationType getOperationType() const;
     void setUserId( int newId);
-    void setDate( string newDate);
+    void setDate( std::string newDate);
 
-    void setItem( string newItem);
-    void setAmount(string newAmount);
-    int getUserId();
-    string getDate();
-    int getDateToSort();
-    string getItem();
-    double getAmount();
-    string getAmountString();
+    void setItem( std::string newItem);
+    void setAmount(std::string newAmount);
+    int getUserId() const;
+    std::string getDate() const;
+    int getDateToSort() const;
+    bool chceckCorrectMoneyInput(const std::string& input);
+    std::string getItem() const;
+    double getAmount() const;
+    std::string getAmountString() const;
 
 
 };

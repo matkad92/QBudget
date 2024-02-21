@@ -6,14 +6,14 @@ void ExpensesManager::addExpense() {
     Expense expense;
 
     system ("cls");
-    cout << " >>> ADDING NEW EXPENSE <<< " << endl;
+    std::cout << " >>> ADDING NEW EXPENSE <<< " << std::endl;
     expense = getNewExpenseData ();
     expenses.push_back(expense);
 
     expensesFile.addExpenseToFile(expense);
-    cout << endl << "Expense has been added successfully."<< endl << endl;
+    std::cout << std::endl << "Expense has been added successfully."<< std::endl << std::endl;
     system("pause");
-    cout << endl;
+    std::cout << std::endl;
 }
 
 Expense ExpensesManager::getNewExpenseData() {
@@ -22,14 +22,14 @@ Expense ExpensesManager::getNewExpenseData() {
     expense.setExpenseId((expensesFile.getLastExpenseId()+1));
     expense.setUserId(LOGGED_IN_USER_ID);
 
-    cout << "Enter expense name: ";
+    std::cout << "Enter expense name: ";
     expense.setItem(UnasignedMethods::takeLine());
 
-    cout << "Enter the amount in format _ _ _ _ _ _ _ _ ._ _ : ";
+    std::cout << "Enter the amount in format _ _ _ _ _ _ _ _ ._ _ : ";
 
     expense.setAmount(UnasignedMethods::takeLine());
 
-    cout << "To add expense with current date press '1', to add expense with custom date press '2'." <<endl;
+    std::cout << "To add expense with current date press '1', to add expense with custom date press '2'." <<std::endl;
 
     char choice = UnasignedMethods::takeChar();
     switch (choice) {
@@ -37,11 +37,11 @@ Expense ExpensesManager::getNewExpenseData() {
         expense.setDate(DateOperations::getSystemDate());
         break;
     case '2':
-        cout << "Enter expense date in format yyyy-mm-dd (starting from 2000-01-01) : ";
+        std::cout << "Enter expense date in format yyyy-mm-dd (starting from 2000-01-01) : ";
         expense.setDate(UnasignedMethods::takeLine());
         break;
     default:
-        cout << endl << "There is no such option - expense added with current date." << endl << endl;
+        std::cout << std::endl << "There is no such option - expense added with current date." << std::endl << std::endl;
         expense.setDate(DateOperations::getSystemDate());
         system("pause");
         break;
@@ -54,28 +54,28 @@ void ExpensesManager::printAllExpenses() {
 
     system("cls");
     if(!expenses.empty()) {
-        cout << "            >>>EXPENSES<<<" << endl;
-        cout << "-----------------------------------------------" << endl;
-        for (vector<Expense>::iterator itr = expenses.begin(), VecEnd = expenses.end(); itr!= VecEnd; itr++) {
+        std::cout << "            >>>EXPENSES<<<" << std::endl;
+        std::cout << "-----------------------------------------------" << std::endl;
+        for (std::vector<Expense>::iterator itr = expenses.begin(), VecEnd = expenses.end(); itr!= VecEnd; itr++) {
             printExpense(*itr);
         }
-        cout << endl;
+        std::cout << std::endl;
     } else {
-        cout << endl << "There are no expenses."<< endl << endl;
+        std::cout << std::endl << "There are no expenses."<< std::endl << std::endl;
     }
     getch();
 }
 
-void ExpensesManager::printExpense(Expense expense) {
+void ExpensesManager::printExpense(const Expense& expense) {
 
-    cout << endl << "Expense Id:                " << expense.getExpenseId() << endl;
+    std::cout << std::endl << "Expense Id:                " << expense.getExpenseId() << std::endl;
     //cout << "UserId:                    " << expense.getUserId() << endl;
-    cout << "Expense name:              " << expense.getItem() << endl;
-    cout << "Expense amount:            " << expense.getAmount() << endl;
-    cout << "Date:                      " << expense.getDate() << endl;
+    std::cout << "Expense name:              " << expense.getItem() << std::endl;
+    std::cout << "Expense amount:            " << expense.getAmount() << std::endl;
+    std::cout << "Date:                      " << expense.getDate() << std::endl;
     //cout << "Date to sort:              " << expense.getDateToSort() << endl;
 }
 
-vector<Expense> ExpensesManager::getExpenses() {
+std::vector<Expense> ExpensesManager::getExpenses() {
     return expenses;
 }

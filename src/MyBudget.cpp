@@ -15,14 +15,13 @@ void MyBudget::changePassword() {
 void MyBudget::userLogin() {
     userManager.login();
     if (userManager.isUserLoggedIn()) {
-        moneyManager =  new MoneyManager (EXPENSES_FILE_NAME , INCOMES_FILE_NAME, userManager.getLoggedInUserId());
+        moneyManager = std::make_unique<MoneyManager>(EXPENSES_FILE_NAME , INCOMES_FILE_NAME, userManager.getLoggedInUserId());
     }
 }
 
 void MyBudget::logout() {
     userManager.logout();
-    delete moneyManager;
-    moneyManager = NULL;
+    moneyManager.reset();
 }
 
 bool MyBudget::isUserLoggedOut() {
@@ -34,13 +33,13 @@ char MyBudget::chooseMainMenuOption() {
     char choice;
 
     system("cls");
-    cout << "    >>> MAIN MENU <<<" << endl;
-    cout << "---------------------------" << endl;
-    cout << "1. User register" << endl;
-    cout << "2. User login" << endl;
-    cout << "9. Exite" << endl;
-    cout << "---------------------------" << endl;
-    cout << "Your choice: ";
+    std::cout << "    >>> MAIN MENU <<<" << std::endl;
+    std::cout << "---------------------------" << std::endl;
+    std::cout << "1. User register" << std::endl;
+    std::cout << "2. User login" << std::endl;
+    std::cout << "9. Exite" << std::endl;
+    std::cout << "---------------------------" << std::endl;
+    std::cout << "Your choice: ";
     choice = UnasignedMethods::takeChar();
 
     return choice;
@@ -50,17 +49,17 @@ char MyBudget::chooseUserMenuOption() {
     char choice;
 
     system("cls");
-    cout << "    >>> USER MENU <<<" << endl; //mozna dodac wyswietlanie imienia uzytkownika
-    cout << "---------------------------" << endl;
-    cout << "1. Add income" << endl;
-    cout << "2. Add expense" << endl;
-    cout << "3. Current month balance" << endl;
-    cout << "4. Last month balance" << endl;
-    cout << "5. Chosen period balance" << endl;
-    cout << "6. Change password" << endl;
-    cout << "9. Log out" << endl;
-    cout << "---------------------------" << endl;
-    cout << "Your choice: ";
+    std::cout << "    >>> USER MENU <<<" << std::endl; //mozna dodac wyswietlanie imienia uzytkownika
+    std::cout << "---------------------------" << std::endl;
+    std::cout << "1. Add income" << std::endl;
+    std::cout << "2. Add expense" << std::endl;
+    std::cout << "3. Current month balance" << std::endl;
+    std::cout << "4. Last month balance" << std::endl;
+    std::cout << "5. Chosen period balance" << std::endl;
+    std::cout << "6. Change password" << std::endl;
+    std::cout << "9. Log out" << std::endl;
+    std::cout << "---------------------------" << std::endl;
+    std::cout << "Your choice: ";
     choice = UnasignedMethods::takeChar();
 
     return choice;

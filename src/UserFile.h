@@ -8,18 +8,16 @@
 #include "FileXml.h"
 #include "User.h"
 
-using namespace std;
-
 
 class UserFile: public FileXml {
 
-    const string USER_FILE_NAME;
+    const std::string USER_FILE_NAME;
 
 public:
-    UserFile (string userFileName): USER_FILE_NAME(userFileName) {};
+    UserFile (std::string userFileName): USER_FILE_NAME(userFileName) {};
     void addUserToFile(User user);
-    vector<User> loadUsersFromXml();
-    void changePasswordInFile(int userId, string newPassword);
+    std::vector<User> loadUsersFromXml();
+    void changePasswordInFile(int userId, std::string newPassword);
 
 };
 

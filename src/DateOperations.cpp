@@ -11,235 +11,103 @@ std::string DateOperations::getSystemDate() {
     return formattedDate;
 }
 
-std::string DateOperations::inputCorrectDateFormat() {
 
-    string checkedDate = UnasignedMethods::takeLine();
+bool DateOperations::getDateIncorrectFormatToString(std::string &output){
 
-    string dateDayString ;
-    string dateMonthString ;
-    string dateYearString ;
-
-    int dateDayInt;
-    int dateMonthInt;
-    int dateYearInt;
-
-    int daysInMonth = dayPerMonth(dateYearInt, dateMonthInt);
-
-    time_t localTime;
-    struct tm * ptr;
-    time( & localTime );
-    ptr = localtime( & localTime );
-
-    while (1)
-        if (checkedDate.length() == 10) {
-            if (checkedDate[4] == '-' && checkedDate[7] == '-' && isdigit(checkedDate[0]) && isdigit(checkedDate[1]) && isdigit(checkedDate[2])
-                    && isdigit(checkedDate[3]) && isdigit(checkedDate[5]) && isdigit(checkedDate[6]) && isdigit(checkedDate[8]) && isdigit(checkedDate[9]) ) {
-                dateDayString = checkedDate.substr(8,2);
-                dateMonthString = checkedDate.substr(5,2);
-                dateYearString = checkedDate.substr(0,4);
-                dateDayInt = atoi(dateDayString.c_str());
-                dateMonthInt = atoi(dateMonthString.c_str());
-                dateYearInt = atoi(dateYearString.c_str());
-
-
-                if ((dateYearInt >= 2000 && dateYearInt < (ptr->tm_year+1900) && dateMonthInt <= 12) ) {
-                    if  (dateDayInt <= daysInMonth) {
-                        return checkedDate;
-                    }
-                    else {
-
-                        checkedDate = takeNewDateToCheck();
-                    }
-                } else if (dateYearInt == (ptr->tm_year+1900) && dateMonthInt <= (ptr->tm_mon+1)) {
-                    if  (dateMonthInt < (ptr->tm_mon+1) && dateDayInt <= daysInMonth) {
-                        return checkedDate;
-                    }
-
-                    else if (dateMonthInt == (ptr->tm_mon+1) && dateDayInt <= ptr->tm_mday) {
-                        return checkedDate;
-                    } else {
-                        checkedDate = takeNewDateToCheck();
-                    }
-                } else {
-                    checkedDate = takeNewDateToCheck();
-                }
-
-            } else {
-                checkedDate = takeNewDateToCheck();
-            }
-
-        } else {
+    std::string checkedDate = UnasignedMethods::takeLine();
+    for(int i = 0; i < 3; i++){
+        if(checkDateFormat(checkedDate)){
+            output = checkedDate;
+            return true;
+        }
+        else {
             checkedDate = takeNewDateToCheck();
         }
+    }
+    output = "";
+    return false;
 }
 
-bool DateOperations::checkDateFormat(string checkedDate) {
+bool DateOperations::checkDateFormat(const std::string& checkedDate){
 
-    string dateDayString ;
-    string dateMonthString ;
-    string dateYearString ;
+    std::istringstream iss(checkedDate);
+    date::year_month_day ymd;
+    iss >> date::parse("%F", ymd);
 
-    int dateDayInt;
-    int dateMonthInt;
-    int dateYearInt;
+    if(ymd.year() < date::year{2000})
+        return false;
 
-    time_t localTime;
-    struct tm * ptr;
-    time( & localTime );
-    ptr = localtime( & localTime );
+    bool returnVal = !iss.fail();
 
-    while (1)
-        if (checkedDate.length() == 10) {
-            if (checkedDate[4] == '-' && checkedDate[7] == '-' && isdigit(checkedDate[0]) && isdigit(checkedDate[1]) && isdigit(checkedDate[2])
-                    && isdigit(checkedDate[3]) && isdigit(checkedDate[5]) && isdigit(checkedDate[6]) && isdigit(checkedDate[8]) && isdigit(checkedDate[9]) ) {
-                dateDayString = checkedDate.substr(8,2);
-                dateMonthString = checkedDate.substr(5,2);
-
-                dateYearString = checkedDate.substr(0,4);
-                dateDayInt = atoi(dateDayString.c_str());
-                dateMonthInt = atoi(dateMonthString.c_str());
-                dateYearInt = atoi(dateYearString.c_str());
-
-
-                if ((dateYearInt >= 2000 && dateYearInt < (ptr->tm_year+1900) && dateMonthInt <= 12) ) {
-                    if  (dateDayInt <= dayPerMonth(dateYearInt, dateMonthInt)) {
-                        correctDateString = checkedDate;
-                        dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
-                        return true;
-                    }
-
-                    else {
-                        checkedDate = takeNewDateToCheck();
-                    }
-                } else if (dateYearInt == (ptr->tm_year+1900) && dateMonthInt <= (ptr->tm_mon+1)) {
-                    if  (dateMonthInt < (ptr->tm_mon+1) && dateDayInt <= dayPerMonth(dateYearInt, dateMonthInt)) {
-                        correctDateString = checkedDate;
-                        dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
-                        return true;
-                    }
-
-                    else if (dateMonthInt == (ptr->tm_mon+1) && dateDayInt <= ptr->tm_mday) {
-                        correctDateString = checkedDate;
-                        dateToSort = dateYearInt * 10000 + dateMonthInt * 100 + dateDayInt;
-                        return true;
-                    } else {
-                        checkedDate = takeNewDateToCheck();
-                    }
-                } else {
-                    checkedDate = takeNewDateToCheck();
-                }
-
-            } else {
-                checkedDate = takeNewDateToCheck();
-            }
-
-        } else {
-            checkedDate = takeNewDateToCheck();
-        }
-
-    return false;
+    return returnVal;
 
 }
 
 int DateOperations::dayPerMonth (int year, int numberOfMonth) {
-    if ((numberOfMonth==1)||(numberOfMonth==3)||(numberOfMonth==5)||
-            (numberOfMonth==7)||(numberOfMonth==8)||(numberOfMonth==10)||
-            (numberOfMonth==12))
-        return 31;
 
-    else if ((numberOfMonth==4)||(numberOfMonth==6)||(numberOfMonth==9)||
-             (numberOfMonth==11))
-        return 30;
-
-    else if (numberOfMonth==2) {
-
-        return (((year%4 == 0) && (year%100 != 0)) || (year%400 == 0))? 29 : 28;
-
+    if (numberOfMonth < 1 || numberOfMonth > 12) {
+        return -1;
     }
+
+    const int daysInMonth[] = {31, 28 + isLeapYear(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return daysInMonth[numberOfMonth - 1];
+}
+
+int DateOperations::isLeapYear(int year){
+
+    return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) ? 1 : 0;
 }
 
 std::string DateOperations::takeNewDateToCheck() {
-    string newDate;
-    throw "Zjebalo";
-    cout << "Date format is wrong, try again using yyyy-mm-dd format, starting from 2000-01-01.";
-    cout << endl << "Date: ";
-    cin.sync();
+
+    std::string newDate;
+    std::cout << "Date format is wrong, try again using yyyy-mm-dd format, starting from 2000-01-01." << std::endl;
+    std::cout << "Date: ";
+    std::cin.sync();
     newDate = UnasignedMethods::takeLine();
     return newDate;
 }
 
-std::string DateOperations::getCorrectDateString () {
-    return correctDateString;
-}
 
+int DateOperations::getDateToSort(const std::string& toConvert) {
 
-int DateOperations::getDateToSort() {
+    int year, month, day;
+
+    std::istringstream iss(toConvert);
+
+    char dash;
+    iss >> year >> dash >> month >> dash >> day;
+
+    int dateToSort = year * 10000 + month * 100 + day;
+
     return dateToSort;
 }
 
-bool DateOperations::isDateSmallerThanEndingDate (string date, string endingDate) { //Bigger or equal
 
-    string dateDayString = date.substr(8,2);
-    string dateMonthString = date.substr(5,2);
-    string dateYearString = date.substr(0,4);
+DateOperations::SysDaysTimePoint DateOperations::getTimePointFromYmdString(const std::string &ymd) {
 
-    string endingDateDayString = endingDate.substr(8,2);
-    string endingDateMonthString = endingDate.substr(5,2);
-    string endingDateYearString = endingDate.substr(0,4);
+    std::istringstream iss(ymd);
+    date::year_month_day ymdDate;
+    iss >> date::parse("%F", ymdDate);
 
-    if (endingDateYearString > dateYearString)
-    {
-        return true;
-    }
-    if (dateYearString == endingDateYearString)
-    {
-        if (endingDateMonthString > dateMonthString)
-        {
-            return true;
-        }
-        if (endingDateMonthString == dateMonthString)
-        {
-
-            if (endingDateDayString >= dateDayString)
-            {
-               return true;
-            }
-        }
-
-    }
-    return false;
+    return date::sys_days{ymdDate};
 }
 
-bool DateOperations::isDateBiggerThanStartingDate (string date, string startingDate) { //Bigger or equal
+bool DateOperations::isDateSmallerThanEndingDate (const std::string& date, const std::string& endingDate) {
 
-    string dateDayString = date.substr(8,2);
-    string dateMonthString = date.substr(5,2);
-    string dateYearString = date.substr(0,4);
+    auto sysDaysDate = getTimePointFromYmdString(date);
+    auto sysDaysEndingDate = getTimePointFromYmdString(endingDate);
 
-    string startingDateDayString = startingDate.substr(8,2);
-    string startingDateMonthString = startingDate.substr(5,2);
-    string startingDateYearString = startingDate.substr(0,4);
-
-    if (dateYearString > startingDateYearString)
-    {
-        return true;
-    }
-    if (dateYearString == startingDateYearString)
-    {
-        if (dateMonthString > startingDateMonthString)
-        {
-            return true;
-        }
-        if (dateMonthString == startingDateMonthString)
-        {
-
-            if (dateDayString >= startingDateDayString)
-            {
-               return true;
-            }
-        }
-
-    }
-    return false;
+    return sysDaysDate < sysDaysEndingDate;
 }
+
+
+bool DateOperations::isDateBiggerOrEqualThanStartingDate (const std::string& date, const std::string& startingDate) {
+
+    auto sysDaysDate = getTimePointFromYmdString(date);
+    auto sysDaysStartingDate = getTimePointFromYmdString(startingDate);
+
+    return sysDaysDate >= sysDaysStartingDate;
+}
+
 

@@ -5,14 +5,21 @@ void IncomesManager::addIncome() {
     Income income;
 
     system ("cls");
-    cout << " >>> ADDING NEW INCOME <<< " << endl;
+    std::cout << " >>> ADDING NEW INCOME <<< " << std::endl;
     income = getNewIncomeData ();
-    incomes.push_back(income);
+    if(income.objectCorrectState){
+        incomes.push_back(income);
 
-    incomesFile.addIncomeToFile(income);
-    cout << endl << "Income has been added successfully."<< endl << endl;
-    system("pause");
-    cout << endl;
+        incomesFile.addIncomeToFile(income);
+        std::cout << std::endl << "Income has been added successfully."<< std::endl << std::endl;
+        system("pause");
+        std::cout << std::endl;
+    }
+    else {
+        std::cout << std::endl << "Income not added."<< std::endl << std::endl;
+        system("pause");
+        std::cout << std::endl;
+    }
 
 }
 
@@ -22,14 +29,14 @@ Income IncomesManager::getNewIncomeData () {
     income.setIncomeId((incomesFile.getLastIncomeId()+1));
     income.setUserId(LOGGED_IN_USER_ID);
 
-    cout << "Enter income name: ";
+    std::cout << "Enter income name: ";
     income.setItem(UnasignedMethods::takeLine());
 
-    cout << "Enter the amount in format _ _ _ _ _ _ _ _ ._ _ : ";
+    std::cout << "Enter the amount in format _ _ _ _ _ _ _ _ ._ _ : ";
 
     income.setAmount(UnasignedMethods::takeLine());
 
-    cout << "To add income with current date press '1', to add income with custom date press '2'." <<endl;
+    std::cout << "To add income with current date press '1', to add income with custom date press '2'." << std::endl;
 
     char choice = UnasignedMethods::takeChar();
     switch (choice) {
@@ -37,12 +44,12 @@ Income IncomesManager::getNewIncomeData () {
         income.setDate(DateOperations::getSystemDate());
         break;
     case '2':
-        cout << "Enter income date in format yyyy-mm-dd (starting from 2000-01-01) : ";
+        std::cout << "Enter income date in format yyyy-mm-dd (starting from 2000-01-01) : ";
         income.setDate(UnasignedMethods::takeLine());
         break;
     default:
-        cout << endl << "There is no such option - income added with current date." << endl << endl;
-        income.setDate(DateOperations::getSystemDate());
+        std::cout << std::endl << "There is no such option - income added with current date." << std::endl << std::endl;
+        income.objectCorrectState = false;
         system("pause");
         break;
     }
@@ -54,29 +61,29 @@ void IncomesManager::printAllIncomes() {
 
     system("cls");
     if(!incomes.empty()) {
-        cout << "            >>>INCOMES<<<" << endl;
-        cout << "-----------------------------------------------" << endl;
-        for (vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
+        std::cout << "            >>>INCOMES<<<" << std::endl;
+        std::cout << "-----------------------------------------------" << std::endl;
+        for (std::vector<Income>::iterator itr = incomes.begin(), VecEnd = incomes.end(); itr!= VecEnd; itr++) {
             printIncome(*itr);
         }
-        cout << endl;
+        std::cout << std::endl;
     } else {
-        cout << endl << "There are no incomes."<< endl << endl;
+        std::cout << std::endl << "There are no incomes."<< std::endl << std::endl;
     }
     getch();
 }
 
-void IncomesManager::printIncome(Income income) {
+void IncomesManager::printIncome(const Income &income) {
 
-    cout << endl << "Income Id:                 " << income.getIncomeId() << endl;
+    std::cout << std::endl << "Income Id:                 " << income.getIncomeId() << std::endl;
     //cout << "UserId:                    " << income.getUserId() << endl;
-    cout << "Income name:               " << income.getItem() << endl;
-    cout << "Income amount:             " << income.getAmount() << endl;
-    cout << "Date:                      " << income.getDate() << endl;
+    std::cout << "Income name:               " << income.getItem() << std::endl;
+    std::cout << "Income amount:             " << income.getAmount() << std::endl;
+    std::cout << "Date:                      " << income.getDate() << std::endl;
     //cout << "Date to sort:              " << income.getDateToSort() << endl;
 }
 
-vector<Income> IncomesManager::getIncomes() {
+std::vector<Income> IncomesManager::getIncomes() {
     return incomes;
 }
 

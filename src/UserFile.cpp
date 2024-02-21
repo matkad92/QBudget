@@ -23,15 +23,15 @@ void UserFile::addUserToFile(User user) {
     users.Save(USER_FILE_NAME);
 }
 
-vector<User> UserFile::loadUsersFromXml() {
+std::vector<User> UserFile::loadUsersFromXml() {
 
     User user;
-    vector<User> loadedUsers;
+    std::vector<User> loadedUsers;
     CMarkup usersXml;
-    string IdString;
+    std::string IdString;
     bool fileExists = usersXml.Load(USER_FILE_NAME);//zwraca true gdzy plik udalo sie otworzyc
     if (!fileExists) {
-        cout << "There is no file: " << USER_FILE_NAME << endl << "If You want to continue, create new user."<< endl;
+        std::cout << "There is no file: " << USER_FILE_NAME << std::endl << "If You want to continue, create new user."<< std::endl;
         getch();
     } else {
         usersXml.ResetPos();
@@ -60,15 +60,15 @@ vector<User> UserFile::loadUsersFromXml() {
     return loadedUsers;
 }
 
-void UserFile::changePasswordInFile(int userId, string newPassword) {
+void UserFile::changePasswordInFile(int userId, std::string newPassword) {
 
-    string loggedInUserIdString = to_string(userId);
-    string idStringFromFile;
+    std::string loggedInUserIdString = std::to_string(userId);
+    std::string idStringFromFile;
     CMarkup usersXml;
 
     bool fileExists = usersXml.Load(USER_FILE_NAME);//zwraca true gdzy plik udalo sie otworzyc
     if (!fileExists) {
-        cout << "No " << USER_FILE_NAME << "file found."<< endl;
+        std::cout << "No " << USER_FILE_NAME << "file found."<< std::endl;
         getch();
     } else {
         usersXml.ResetPos();

@@ -10,19 +10,18 @@
 #include "FileXml.h"
 #include "UnasignedMethods.h"
 
-using namespace std;
 
 class ExpensesFile : public FileXml {
 
     int lastExpenseId;
-    const string EXPENSES_FILE_NAME;
+    const std::string EXPENSES_FILE_NAME;
 
 public:
-    ExpensesFile (string expensesFileName) : EXPENSES_FILE_NAME(expensesFileName) {
+    ExpensesFile (std::string expensesFileName) : EXPENSES_FILE_NAME(expensesFileName) {
     };
     int getLastExpenseId();
     void addExpenseToFile (Expense expense);
-    vector<Expense> loadLoggedInUserExpenses(int loggedInUserId);
+    std::vector<Expense> loadLoggedInUserExpenses(int loggedInUserId);
 };
 
 

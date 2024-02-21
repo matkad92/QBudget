@@ -4,11 +4,9 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 class UnasignedMethods {
 public:
-    static string takeLine();
+    static std::string takeLine();
     static char takeChar();
 };
 
