@@ -18,11 +18,11 @@ public:
     void setName(std::string newName);
     void setSurname(std::string newSurname);
 
-    int getId();
-    std::string getLogin();
-    std::string getPassword();
-    std::string getName();
-    std::string getSurname();
+    int getId() const;
+    std::string getLogin() const;
+    std::string getPassword() const;
+    std::string getName() const;
+    std::string getSurname() const;
 
 };
 

@@ -1,9 +1,12 @@
 // #include <iostream>
 #include "UserManager.h"
 #include "MoneyManager.h"
-#include<memory>
+#include <memory>
+#include "dbmanager.h"
+
 
 class MyBudget {
+    std::shared_ptr<DbManager> dbManager;
     UserManager userManager;
     int loggedInUserId;
     std::unique_ptr<MoneyManager> moneyManager;
@@ -11,9 +14,11 @@ class MyBudget {
     const std::string INCOMES_FILE_NAME;
 
 public:
-    MyBudget(std::string userFileName, std::string expensesFileName, std::string incomesFileName): userManager(userFileName), EXPENSES_FILE_NAME(expensesFileName), INCOMES_FILE_NAME (incomesFileName){
+    MyBudget (std::string userFileName, std::string expensesFileName, std::string incomesFileName):
+        dbManager(std::make_shared<DbManager>()), userManager(userFileName, dbManager), EXPENSES_FILE_NAME(expensesFileName), INCOMES_FILE_NAME (incomesFileName){
         loggedInUserId = 0;
         moneyManager.reset();
+        // dbManager = std::make_unique<DbManager>();
     }
     void userRegister();
     void printAllUsers();

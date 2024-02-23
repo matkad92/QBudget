@@ -16,18 +16,18 @@ void User::setSurname(std::string newSurname) {
     surname = newSurname;
 }
 
-int User::getId() {
+int User::getId() const {
     return id;
 }
-std::string User::getLogin() {
+std::string User::getLogin() const {
     return login;
 }
-std::string User::getPassword() {
+std::string User::getPassword() const {
     return password;
 }
-std::string User::getName() {
+std::string User::getName() const{
     return name;
 }
-std::string User::getSurname() {
+std::string User::getSurname() const{
     return surname;
 }

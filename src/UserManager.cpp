@@ -5,10 +5,22 @@ void UserManager::userRegister() {
     users.push_back(user);
     userFile.addUserToFile(user);
 
+    if (dbManager) {
+        if (dbManager->addUserToDatabase(user)) {
+            std::cout << std::endl << "User has been created successfully in the database." << std::endl << std::endl;
+        } else {
+            std::cerr << "Error: Failed to add user to the database." << std::endl;
+        }
+    } else {
+        std::cerr << "Error: DbManager is not initialized." << std::endl;
+    }
+
     std::cout << std::endl << "User has been created successfully."<< std::endl << std::endl;
     system("pause");
     std::cout << std::endl;
 }
+
+
 User UserManager::getNewUserData() {
     User user;
     std::string login;

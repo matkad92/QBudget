@@ -1,21 +1,31 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(QBudget LANGUAGES CXX)
+project(QBudget LANGUAGES CXX )
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(src/libs)
-# include_directories(src/)
+
+# set(SQLITE_SRC "${CMAKE_SOURCE_DIR}/src/libs/sqlite3.c")
 
 file(GLOB SOURCES "src/*.cpp" "src/*.h" "src/*.hpp" "src/libs/*.cpp" "src/libs/*.h" "src/libs/*.hpp")
 
 # Add test files from Tests/
 file(GLOB TEST_SOURCES "Tests/*.cpp" "Tests/*.h" "Tests/*.hpp")
-# set(ALL_SOURCES ${SOURCES} ${TEST_SOURCES})
 
 
-add_executable(QBudget ${SOURCES})
+add_executable(QBudget ${SOURCES} #[[${SQLITE_SRC}]]
+    src/dbmanager.h src/dbmanager.cpp)
+
+# target_link_libraries(QBudget PRIVATE "${CMAKE_SOURCE_DIR}/externalDll/sqlite3.dll")
+target_link_libraries(QBudget PRIVATE "${CMAKE_BINARY_DIR}/sqlite3.dll")
+
+# Copy DLL to output directory
+add_custom_command(TARGET QBudget POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_SOURCE_DIR}/externalDll/sqlite3.dll"
+    $<TARGET_FILE_DIR:QBudget>)
 
 include(GNUInstallDirs)
 install(TARGETS QBudget
